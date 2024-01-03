@@ -1,0 +1,505 @@
+.table-sinsuea{
+    width: 100%;
+}
+.table-sinsuea,
+.table-sinsuea tr,
+.table-sinsuea th,
+.table-sinsuea td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.count_check_bill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 30px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    background-color: rgb(249, 249, 249);
+}
+
+.count_check_bill_free {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 30px;
+    font-weight: bold;
+    color: white;
+    background-color: white;
+}
+
+.body-content {
+    overflow-y: auto;
+    height: 50vb;
+}
+
+.image-pos-food {
+    background-attachment: fixed;
+    background-color: white;
+    max-width: 250px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.image-pos-food p {
+    font-size: 16px;
+    max-width: 100%;
+    width: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* padding-right: 5px;
+    margin-top: 5px;
+    padding-left: 5px;
+    */
+}
+
+.containerimg .box {
+    position: relative;
+    max-width: 250px;
+    height: 100px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.imagesale {
+    max-width: 250px;
+    height: 100px;
+}
+
+.containerimg .box .imgbox {
+    position: relative;
+    overflow: hidden;
+}
+
+.containerimg .box .imgbox img {
+    max-width: 100%;
+    transition: transform 2s;
+}
+
+.containerimg .box:hover .imgbox img {
+    transform: scale(1.2);
+}
+
+@media (max-width: 390px) {
+    .image-pos-food img {
+        width: 100%;
+        height: 250px;
+    }
+
+    .body-content {
+        overflow-y: auto;
+        height: 30vh;
+    }
+
+    .image-pos-food {
+        width: 100vw;
+    }
+
+    .image-pos-food img {
+        width: 95vw;
+        height: 250px;
+        object-fit: cover;
+    }
+}
+
+#pos-content {
+    height: 80vh;
+}
+
+.table-check-in {
+    font-size: 0.05rem;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.table-check-in::-webkit-scrollbar {
+    width: 0;
+}
+
+.table-check-in .table-title {
+    position: sticky;
+    background-color: DodgerBlue;
+    top: 0;
+    bottom: 0;
+}
+
+
+/* .conent-body-show {
+    position: relative;
+    width: 100;
+} */
+
+.content-header-title {
+    width: 366px;
+}
+
+.category-list {
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.category-list::-webkit-scrollbar {
+    width: 0;
+}
+
+.class-qty {
+    width: 40px;
+    height: 20px;
+}
+
+/* .body-content img {
+    width: 100%;
+    width: 110px;
+    height: 90px;
+    margin-top: 2px;
+    object-fit: cover;
+} */
+
+*/ .tbody-items {
+    white-space: nowrap;
+}
+
+.main-web-color {
+    color: #000;
+}
+.second-web-color {
+    color: gold;
+}
+.main-web-background {
+    background-color: #000;
+}
+.second-web-background {
+    background-color: gold;
+}
+.positionfixed {
+    position: fixed !important;
+    top: 7.8rem;
+    right: 0;
+}
+
+.bill {
+    display: flex;
+    justify-content: space-between;
+}
+
+.bill .name {
+    width: 150px;
+}
+
+.bill .qty_price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 150px;
+}
+
+.bill .total_price {
+    width: 150px;
+    text-align: end;
+}
+
+@media (max-width:768px) {
+    .positionfixed {
+        position: static !important;
+    }
+}
+/*** Spinner ***/
+#spinner {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    z-index: 99999;
+}
+
+#spinner.show {
+    transition: opacity .5s ease-out, visibility 0s linear 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/* ================= avatar form upload image preview ==================== */
+
+#media-list li img {
+    width: 100px;
+    height: 100px
+}
+
+#media-list li {
+    height: 102px
+}
+
+#media-list li video {
+    width: 100px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%)
+}
+
+div#hint_brand .modal-dialog {
+    top: 110px;
+    width: 567px;
+    max-width: 100%
+}
+
+li.myupload span {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    display: block;
+    background: #fff
+}
+
+li.myupload span input {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0
+}
+
+li.myupload span i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ccc;
+    font-size: 54px
+}
+
+#media-list li {
+    float: left;
+    border: 1px solid #ccc;
+    background: #ccc;
+    position: relative;
+    margin: 0 5px 5px 0;
+    width: 102px
+}
+
+#media-list li:last-child {
+    margin-right: 0
+}
+
+.post-thumb {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.4);
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: none
+}
+
+#media-list li:hover .post-thumb {
+    display: block
+}
+
+a.remove-pic {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 12px;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    display: block;
+    height: 25px;
+    width: 25px;
+    text-align: center;
+    padding: 3px 0
+}
+
+.inner-post-thumb {
+    position: relative
+}
+
+.user-post-text-wrap {
+    position: relative
+}
+
+.user-pic-post {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 0;
+    left: 0
+}
+
+.user-pic-post img {
+    width: 100%
+}
+
+.user-txt-post {
+    padding: 0 0 0 65px
+}
+
+textarea.form-control.upostTextarea {
+    border: 0;
+    box-shadow: none;
+    height: 85px;
+    resize: none
+}
+
+.user-post-text-wrap {
+    border-bottom: 1px solid #ccc;
+    margin: 0 0 15px
+}
+
+.user-post-btn-wrap {
+    margin: 25px 0 0
+}
+
+ul.btn-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0
+}
+
+ul.btn-nav li {
+    position: relative;
+    float: left;
+    margin: 0 10px 0 0
+}
+
+ul.btn-nav li span input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9;
+    opacity: 0;
+    filter: alpha(opacity=100)
+}
+
+ul#media-list {
+    list-style: none;
+    padding: 0;
+    margin: 0
+}
+
+
+/* =========== */
+
+body {
+    background: whitesmoke;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0px auto;
+    padding: 10px;
+}
+
+h1 {
+    font-size: 20px;
+    text-align: center;
+    margin: 20px 0 20px;
+}
+
+h1 small {
+    display: block;
+    font-size: 15px;
+    padding-top: 8px;
+    color: gray;
+}
+
+.avatar-upload {
+    position: relative;
+    max-width: 160px;
+    margin: 0px auto;
+}
+
+.avatar-upload .avatar-edit {
+    position: absolute;
+    right: 12px;
+    z-index: 10;
+    top: 10px;
+}
+
+.avatar-upload .avatar-edit input {
+    display: none;
+}
+
+.avatar-upload .avatar-edit input+label {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 0;
+    border-radius: 100%;
+    background: #FFFFFF;
+    border: 1px solid transparent;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    font-weight: normal;
+    transition: all 0.2s ease-in-out;
+}
+
+.avatar-upload .avatar-edit input+label:hover {
+    background: #f1f1f1;
+    border-color: #d6d6d6;
+}
+
+.avatar-upload .avatar-edit input+label:after {
+    content: "\f040";
+    font-family: 'FontAwesome';
+    color: #757575;
+    position: absolute;
+    top: 6px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: auto;
+}
+
+.avatar-upload .avatar-preview {
+    width: 160px;
+    height: 160px;
+    position: relative;
+    border-radius: 100%;
+    border: 6px solid #F8F8F8;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-upload .avatar-preview>div {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Base styles for h3 */
+.responsive-text {
+    font-weight: bold;
+    font-size: 50px; /* Default font size */
+  }
+  
+  /* Media query for smaller screens (e.g., mobile) */
+  @media screen and (max-width: 768px) {
+    .responsive-text {
+      font-size: 18px; /* Adjust font size for smaller screens */
+    }
+  }
+  
+  /* Media query for larger screens (e.g., desktop) */
+  @media screen and (min-width: 769px) {
+    .responsive-text {
+      font-size: 24px; /* Adjust font size for larger screens */
+    }
+  }
+  
