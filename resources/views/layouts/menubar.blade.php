@@ -1,7 +1,7 @@
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-white" @if (request()->is('check-bill-restaurant')) style="position: sticky;top:0;" @endif>
     <div class="container-fluid">
         <a href="{{ route('backend.dashboard') }}" class="navbar-brand">
-            <img src="{{ asset('images/logo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <img src="{{ asset('fontend/img/logo1.png')}}" width="35" height="35" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">
                 {{ !empty(auth()->user()->firstname) ? auth()->user()->firstname : '' }}
             </span>
@@ -12,9 +12,7 @@
             <ul class="navbar-nav">
                 @if (
                 $function_controller->check_permission('access_setting') == true ||
-                auth()->user()->role_id == 1 ||
-                auth()->user()->role_id == 2 ||
-                auth()->user()->role_id == 3)
+                auth()->user()->role_id == 1 )
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">{{ __('lang.settings') }}</a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
@@ -46,20 +44,37 @@
                        
                         @if (
                         $function_controller->check_permission('access_role') == true ||
-                        auth()->user()->role_id == 1 ||
-                        auth()->user()->role_id == 2 ||
-                        auth()->user()->role_id == 3)
+                        auth()->user()->role_id == 1 )
                         <li><a href="{{ route('backend.role') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
                                 {{ __('lang.roles') }}</a>
                         </li>
                         @endif
                         @if (
                         $function_controller->check_permission('access_user') == true ||
-                        auth()->user()->role_id == 1 ||
-                        auth()->user()->role_id == 2 ||
-                        auth()->user()->role_id == 3)
+                        auth()->user()->role_id == 1)
                         <li><a href="{{ route('backend.user') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
                                 {{ __('lang.users') }}</a>
+                        </li>
+                        @endif
+                        @if (
+                        $function_controller->check_permission('access_user') == true ||
+                        auth()->user()->role_id == 1)
+                        <li><a href="{{ route('backend.province') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
+                            ແຂວງ</a>
+                        </li>
+                        @endif
+                        @if (
+                        $function_controller->check_permission('access_user') == true ||
+                        auth()->user()->role_id == 1)
+                        <li><a href="{{ route('backend.district') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
+                            ເມືອງ</a>
+                        </li>
+                        @endif
+                        @if (
+                        $function_controller->check_permission('access_user') == true ||
+                        auth()->user()->role_id == 1)
+                        <li><a href="{{ route('backend.village') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
+                            ບ້ານ</a>
                         </li>
                         @endif
                      
@@ -72,36 +87,58 @@
                 </li>
                 @endif
    
-          
                 @if (
                 $function_controller->check_permission('customer') == true ||
-                auth()->user()->role_id == 1 ||
-                auth()->user()->role_id == 2 ||
-                auth()->user()->role_id == 3)
+                auth()->user()->role_id == 1 )
                 <li class="nav-item dropdown">
-                    <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">{{ __('lang.customers') }}</a>
+                    <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">{{__('lang.customer')}}</a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                         <li><a href="{{ route('backend.customers') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                                {{ __('lang.customers') }}</a>
+                            {{__('lang.customer')}}</a>
                         </li>
                     </ul>
                 </li>
                 @endif
-                
-            <li>
-                <a href="{{ route('backend.expend_income') }}" class="nav-link">{{ __('lang.income_expend') }}</a>
-            </li>
+                @if (
+                $function_controller->check_permission('customer') == true ||
+                auth()->user()->role_id == 1 )
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">ປະຫັວດການປິ່ນປົວ</a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li><a href="" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
+                            ປະຫັວດການປິ່ນປົວ</a>
+                        </li>
+                    </ul>
+                </li>
+                @endif
+                @if (
+                $function_controller->check_permission('customer') == true ||
+                auth()->user()->role_id == 1 )
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">ການໝາຍຂອງຄົນໄຂ</a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li><a href="" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
+                            ການໝາຍຂອງຄົນໄຂ</a>
+                        </li>
+                    </ul>
+                </li>
+                @endif
+        
+
             <li class="nav-item dropdown">
                 <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">{{ __('lang.report') }}</a>
                 <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                     <li><a href="{{ route('backend.report_all_customer') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                            {{ __('lang.all_customer') }}</a>
+                        ລູກຄ້າ ຫຼື ຄົນໄຂທັງໝົດ</a>
                     </li>
                     <li><a href="{{ route('backend.report_customer_arrear') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                            {{ __('lang.tid_ny_customer') }}</a>
+                        ລາຍງານການໜັດໝາຍ</a>
                     </li>
                     <li><a href="" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                            {{ __('lang.conclusion_total_interest') }}</a>
+                        ລາຍງານການຜິດໜັດໝາຍ</a>
+                    </li>
+                    <li><a href="" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
+                        ລາຍການຜູ້ລະບົບ</a>
                     </li>
                     <li class="dropdown-divider"></li>
             </li>
@@ -122,24 +159,18 @@
                     <a class="nav-link" data-toggle="nav-item" href="{{ url('localization/en') }}">
                         <i class="flag-icon flag-icon-us"></i> {{ __('lang.english') }}
                     </a>
-                    <a class="nav-link" data-toggle="nav-item" href="{{ url('localization/cn') }}">
-                        <i class="flag-icon flag-icon-cn"></i> {{ __('lang.chinese') }}
-                    </a>
+                   
                 </div>
             </li>
             <li class="nav-item dropdown">
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
-                    <img src="{{ asset('images/logo.png') }}" style="width: 30px; height: 30px" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                    <img src="{{ asset('fontend/img/logo1.png')}}" style="width: 30px; height: 30px" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                     <span class="brand-text font-weight-light text-md"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right p-0">
                     <a class="nav-link" data-toggle="nav-item" href="{{ route('backend.profile') }}">
                         <i class="fas fa-user-tie"></i> {{ __('lang.profile') }}
-                    </a>
-                    <a class="nav-link" data-toggle="nav-item" href="#">
-                        <i class="fa fa-angle-double-right"></i><i class="fa fa-angle-double-right"></i>
-                        {{ !empty(auth()->user()->get_role->name) ? auth()->user()->get_role->name : '' }}
                     </a>
                     <div class="dropdown-divider"></div>
                     <a data-toggle="modal" data-target="#modal-default" class="nav-link" data-controlsidebar-slide="true" role="button">

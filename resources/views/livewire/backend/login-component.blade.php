@@ -1,7 +1,7 @@
 <div class="box-contener">
     <div class="forms">
-        <div class="logo">
-            <img src="{{ asset('fontend/img/logo.png')}}" alt="">
+        <div class="logo" >
+            <img src="{{ asset('fontend/img/logo1.png')}}"  alt="">
         </div>
         <div class="box1"></div>
         <h2>ຍິນດິຕ້ອນຮັບເຂົ້າສູ່ລະບົບ</h2>

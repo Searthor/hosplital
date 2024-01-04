@@ -268,4 +268,5 @@ return [
     'target' => 'ເປົ້າຫມາຍ',
     'nationality' => 'ສັນຊາດ',
     'status_life' => 'ສະຖານະພາບ',
+   
 ];

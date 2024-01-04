@@ -38,15 +38,6 @@
                                                 </button>
                                             </div>
                                         @endif
-                                        <div class="col-md-4">
-                                            <button class="btn btn-warning" id="print">Print</button>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button class="btn btn-success" onclick="ExportExcel()">
-                                                Excel
-                                            </button>
-                                        </div>
-
                                     </div>
                                 </div>
 

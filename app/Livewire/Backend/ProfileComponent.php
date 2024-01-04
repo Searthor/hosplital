@@ -27,9 +27,20 @@ class ProfileComponent extends Component
         $this->vill_id =  auth()->user()->vill_id;
         $this->dis_id =  auth()->user()->dis_id;
         $this->pro_id =  auth()->user()->pro_id;
+        
     }
     public function render()
     {
+        $data = User::find(auth()->user()->id);
+        $this->firstname = $data->firstname;
+        $this->lastname =  $data->lastname;
+        $this->phone =  $data->phone;
+        $this->email =  $data->email;
+        $this->address =  $data->address;
+        $this->vill_id =  $data->vill_id;
+        $this->dis_id =  $data->dis_id;
+        $this->pro_id =  auth()->user()->pro_id;
+        
         if ($this->pro_id) {
             $this->districts =  District::where('province_id', $this->pro_id)->orderBy('name_la')->get();
         }
@@ -38,8 +49,7 @@ class ProfileComponent extends Component
         }
         $provinces =  Province::get();
         $roles =   Role::get();
-        $branches =  Branch::get();
-        return view('livewire.backend.profile-component', compact('provinces', 'roles', 'branches'))->layout('layouts.backend');
+        return view('livewire.backend.profile-component', compact('provinces', 'roles'))->layout('layouts.backend');
     }
     public function resetField()
     {
@@ -63,31 +73,17 @@ class ProfileComponent extends Component
         }
         try {
             $data = User::find(auth()->user()->id);
-            if ($this->firstname) {
-                $data->firstname = $this->firstname;
-            }
-            if ($this->lastname) {
-                $data->lastname = $this->lastname;
-            }
-            if ($this->phone) {
-                $data->phone = $this->phone;
-            }
-            if ($this->email) {
-                $data->email = $this->email;
-            }
+            $data->firstname = $this->firstname;
+            $data->lastname = $this->lastname;
+            $data->phone = $this->phone;
+            $data->email = $this->email;
             if ($this->password) {
                 $data->password = bcrypt($this->password);
             }
-            if ($this->vill_id) {
-                $data->vill_id = $this->vill_id;
-            }
-            if ($this->pro_id) {
-                $data->pro_id = $this->pro_id;
-            }
-            if ($this->dis_id) {
-                $data->dis_id = $this->dis_id;
-            }
-            $data->save();
+            $data->vill_id = $this->vill_id;
+            $data->pro_id = $this->pro_id;
+            $data->dis_id = $this->dis_id;
+            $data->update();
             $this->mount();
             $this->dispatch('show-modal-hide');
             $this->dispatch('edit');

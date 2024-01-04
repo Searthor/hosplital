@@ -34,22 +34,15 @@ Route::get('localization/{local}', function ($local) {
 });
 
 
-Route::get('/login', App\Livewire\Backend\LoginComponent::class)->name('backend.login');
+Route::get('/', App\Livewire\Backend\LoginComponent::class)->name('backend.login');
 
 Route::group(['middleware' => 'adminLogin'], function () {
     Route::get('/dashboard', App\Livewire\Backend\DashboardComponent::class)->name('backend.dashboard');
     Route::get('/roles', RoleComponent::class)->name('backend.role');
-   
-   
-   
     Route::get('/users', App\Livewire\Backend\Settings\UserComponent::class)->name('backend.user');
     Route::get('/logout', [App\Livewire\Backend\DashboardComponent::class, 'logout'])->name('backend.logout');
     Route::get('/profile', App\Livewire\Backend\ProfileComponent::class)->name('backend.profile');
-   
-    ///////////////////////////////////// khamdev /////////////////////////////
     
-    
-    Route::get('/income-expends', ExpendIncomeContent::class)->name('backend.expend_income');
     Route::get('/abouts', AboutContent::class)->name('backend.about');
     Route::get('/blogs', BlogContent::class)->name('backend.blog');
     Route::get('/blog_types', BlogTypeContent::class)->name('backend.blog_type');
@@ -58,16 +51,15 @@ Route::group(['middleware' => 'adminLogin'], function () {
     Route::get('/report-all-customer', AllCustomerContent::class)->name('backend.report_all_customer');
     Route::get('/report-customer-arrear', CustomerArrearContent::class)->name('backend.report_customer_arrear');
 
-
-    
-    ////////////////////// Customers //////////////////////////
     Route::get('/customers', App\Livewire\Backend\Customers\CustomerComponent::class)->name('backend.customers');
     Route::get('/customers/download/{id}', [App\Livewire\Backend\Customers\CustomerComponent::class, 'download'])->name('customers_download');
-    /////////////////////////////////////ເງິນກູ້/////////////////////////////
+    Route::get('/province', App\Livewire\Backend\Settings\ProvinceComponent::class)->name('backend.province');
+    Route::get('/district', App\Livewire\Backend\Settings\DistrictComponent::class)->name('backend.district');
+    Route::get('/village', App\Livewire\Backend\Settings\VillageComponent::class)->name('backend.village');
+    
 });
-
 // fontend//
-Route::get('/', App\Livewire\Fontend\HomeComponent::class)->name('/');
+//Route::get('/', App\Livewire\Fontend\HomeComponent::class)->name('/');
 Route::get('/about', App\Livewire\Fontend\AboutComponent::class)->name('fontend.about');
 Route::get('/services', App\Livewire\Fontend\ServicesComponent::class)->name('fontend.services');
 Route::get('/services/service_detail/{id}', App\Livewire\Fontend\ServiceDetailComponent::class)->name('fontend.service_detail');
