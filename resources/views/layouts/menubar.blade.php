@@ -59,24 +59,31 @@
                         @if (
                         $function_controller->check_permission('access_user') == true ||
                         auth()->user()->role_id == 1)
+                        <li><a href="{{ route('backend.departments') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
+                                ພະແນກ</a>
+                        </li>
+                        @endif
+                        {{-- @if (
+                        $function_controller->check_permission('access_user') == true ||
+                        auth()->user()->role_id == 1)
                         <li><a href="{{ route('backend.province') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
                             ແຂວງ</a>
                         </li>
-                        @endif
-                        @if (
+                        @endif --}}
+                        {{-- @if (
                         $function_controller->check_permission('access_user') == true ||
                         auth()->user()->role_id == 1)
                         <li><a href="{{ route('backend.district') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
                             ເມືອງ</a>
                         </li>
-                        @endif
-                        @if (
+                        @endif --}}
+                        {{-- @if (
                         $function_controller->check_permission('access_user') == true ||
                         auth()->user()->role_id == 1)
                         <li><a href="{{ route('backend.village') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
                             ບ້ານ</a>
                         </li>
-                        @endif
+                        @endif --}}
                      
                        
                  
@@ -91,10 +98,10 @@
                 $function_controller->check_permission('customer') == true ||
                 auth()->user()->role_id == 1 )
                 <li class="nav-item dropdown">
-                    <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">{{__('lang.customer')}}</a>
+                    <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">ຄົນໄຂ້</a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                        <li><a href="{{ route('backend.customers') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                            {{__('lang.customer')}}</a>
+                        <li><a href="{{ route('backend.patients') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
+                            ຄົນໄຂ້</a>
                         </li>
                     </ul>
                 </li>
@@ -105,10 +112,14 @@
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">ປະຫັວດການປິ່ນປົວ</a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                        <li><a href="" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                            ປະຫັວດການປິ່ນປົວ</a>
+                        <li><a href="{{ route('create_treatment') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
+                            ເພີ່ມອາການເບື້ອງຕົ້ນ</a>
+                        </li>
+                        <li><a href="{{ route('backend.treatment') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
+                            ລາຍການຄົນໄຂ້</a>
                         </li>
                     </ul>
+                 
                 </li>
                 @endif
                 @if (

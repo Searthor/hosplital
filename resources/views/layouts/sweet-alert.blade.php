@@ -107,5 +107,17 @@
       showConfirmButton: false,
     });
   });
+  // required_patient
+  document.addEventListener('required_patient', function(e) {
+    Swal.fire({
+      title: '@lang("lang.required_patient")',
+      icon: "warning",
+      iconColor:  'warning',
+      timer: 3000,
+      toast: true,
+      position: 'top-right',
+      showConfirmButton: false,
+    });
+  });
   
 </script>

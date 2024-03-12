@@ -17,7 +17,6 @@ use App\Http\Controllers\Function\FunctionController;
 
 class CustomerComponent extends Component
 {
-
     use WithFileUploads;
     use WithPagination;
     public $districts = [], $villages = [], $pro_id, $dis_id, $vill_id, $hiddenId, $page_number;

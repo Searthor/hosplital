@@ -24,7 +24,7 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->char('phone',20);
             $table->enum('gender', ['man', 'women','another']);
-            $table->date('birthday');;
+            $table->date('birthday');
             $table->integer('status');
             $table->string('nationality',20)->nullable();
             $table->integer('del')->default('1');

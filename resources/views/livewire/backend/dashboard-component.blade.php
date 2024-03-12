@@ -25,13 +25,13 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3 style="font-size:2.5vw;">45  ຄົນ</h3>
+                            <h3 style="font-size:2.5vw;">{{count($all_user)}}  ຄົນ</h3>
                             <p>ຜູ້ໃຊ້ລະບົບທັງໜົດ</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="#" class="small-box-footer"> ລາຍລະອຽດ<i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('backend.user')}}" class="small-box-footer">ລາຍລະອຽດ<i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -39,7 +39,7 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3 style="font-size:2.5vw;">2000 ຄົນ</h3>
+                            <h3 style="font-size:2.5vw;">{{count($all_patient)}} ຄົນ</h3>
                             <p>ຄົນໄຂທັງໝົດ</p>
                         </div>
                         <div class="icon">
@@ -65,9 +65,9 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-danger">
+                    <div class="small-box " style="background: rgb(255, 154, 154)">
                         <div class="inner">
-                            <h3 style="font-size:2.5vw;">10000 ລາຍການ</h3>
+                            <h3 style="font-size:2.5vw;">{{count($all_treatment)}} ລາຍການ</h3>
                             <p>ລາຍການປະຫວັດ</p>
                         </div>
                         <div class="icon">

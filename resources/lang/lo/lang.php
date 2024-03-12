@@ -268,5 +268,9 @@ return [
     'target' => 'ເປົ້າຫມາຍ',
     'nationality' => 'ສັນຊາດ',
     'status_life' => 'ສະຖານະພາບ',
+    'required_patient' => 'ກາລຸນາເລືອກຄົນເຈັບກ່ອນ',
+    'required_weight' => 'ກະລຸນາປ້ອມນໍ້າໜັກກ່ອນ',
+    'code' => 'ລະຫັດ',
+    'fullname' => 'ຊື່ ແລະ ນາມສະກຸນ',
    
 ];

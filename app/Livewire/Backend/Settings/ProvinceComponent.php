@@ -22,7 +22,7 @@ class ProvinceComponent extends Component
             ->where(function ($q) {
                 $q->where('name_la', 'like', '%' . $this->search . '%')
                     ->orwhere('name_en', 'like', '%' . $this->search . '%');
-            });
+        });
         if($this->page_number != "all"){
             $data = $data->paginate($this->page_number);
         }else{

@@ -260,5 +260,8 @@ return [
     'target' => 'Target',
     'nationality' => 'Nationality',
     'status_life' => 'Status life',
+    'required_patient' => 'Please select a patient first',
+    'code' => 'Code',
+    'fullname' => 'FullName',
 ];
  

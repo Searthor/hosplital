@@ -38,11 +38,12 @@ Route::get('/', App\Livewire\Backend\LoginComponent::class)->name('backend.login
 
 Route::group(['middleware' => 'adminLogin'], function () {
     Route::get('/dashboard', App\Livewire\Backend\DashboardComponent::class)->name('backend.dashboard');
+    // settings
     Route::get('/roles', RoleComponent::class)->name('backend.role');
     Route::get('/users', App\Livewire\Backend\Settings\UserComponent::class)->name('backend.user');
+    Route::get('/departments', App\Livewire\Backend\Settings\DepartmentsComponent::class)->name('backend.departments');
     Route::get('/logout', [App\Livewire\Backend\DashboardComponent::class, 'logout'])->name('backend.logout');
     Route::get('/profile', App\Livewire\Backend\ProfileComponent::class)->name('backend.profile');
-    
     Route::get('/abouts', AboutContent::class)->name('backend.about');
     Route::get('/blogs', BlogContent::class)->name('backend.blog');
     Route::get('/blog_types', BlogTypeContent::class)->name('backend.blog_type');
@@ -50,12 +51,24 @@ Route::group(['middleware' => 'adminLogin'], function () {
    
     Route::get('/report-all-customer', AllCustomerContent::class)->name('backend.report_all_customer');
     Route::get('/report-customer-arrear', CustomerArrearContent::class)->name('backend.report_customer_arrear');
-
+    // 
     Route::get('/customers', App\Livewire\Backend\Customers\CustomerComponent::class)->name('backend.customers');
     Route::get('/customers/download/{id}', [App\Livewire\Backend\Customers\CustomerComponent::class, 'download'])->name('customers_download');
     Route::get('/province', App\Livewire\Backend\Settings\ProvinceComponent::class)->name('backend.province');
     Route::get('/district', App\Livewire\Backend\Settings\DistrictComponent::class)->name('backend.district');
     Route::get('/village', App\Livewire\Backend\Settings\VillageComponent::class)->name('backend.village');
+    // patients
+    Route::get('/patients', App\Livewire\Backend\Patient\PatientComponent::class)->name('backend.patients');
+    Route::get('/patients-detial-lists/{id}', App\Livewire\Backend\Patient\PatientDetailListComponent::class)->name('backend_patient_list');
+    Route::get('/patients-detial/{id}', App\Livewire\Backend\Patient\DetailsComponent::class)->name('backend_patient_detail');
+
+
+    // treatment
+    Route::get('/treatment', App\Livewire\Backend\Treatment\TreatmentComponent::class)->name('backend.treatment');
+    Route::get('/create', App\Livewire\Backend\Treatment\CreateTreatmentComponent::class)->name('create_treatment');
+    Route::get('/detials', App\Livewire\Backend\Treatment\DetialsComponent::class)->name('treatment_detail');
+
+
     
 });
 // fontend//
