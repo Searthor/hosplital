@@ -1,7 +1,16 @@
-<nav class="main-header navbar navbar-expand-md navbar-light navbar-white" @if (request()->is('check-bill-restaurant')) style="position: sticky;top:0;" @endif>
+<nav class="main-header navbar navbar-expand-md navbar-light navbar-white"
+    @if (request()->is('check-bill-restaurant')) style="position: sticky;top:0;" @endif>
     <div class="container-fluid">
         <a href="{{ route('backend.dashboard') }}" class="navbar-brand">
-            <img src="{{ asset('fontend/img/logo1.png')}}" width="35" height="35" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            @if (auth()->user()->image)
+                <img src="{{ asset(auth()->user()->image) }}" width="35" height="35" alt="AdminLTE Logo"
+                    class="brand-image img-circle elevation-3" style="opacity: .8">
+            @else
+                <img src="{{ asset('fontend/img/logo1.png') }}" width="35" height="35" alt="AdminLTE Logo"
+                    class="brand-image img-circle elevation-3" style="opacity: .8">
+            @endif
+
+
             <span class="brand-text font-weight-light">
                 {{ !empty(auth()->user()->firstname) ? auth()->user()->firstname : '' }}
             </span>
@@ -10,149 +19,132 @@
         <div class="collapse navbar-collapse order-3" id="navbarCollapse">
 
             <ul class="navbar-nav">
-                @if (
-                $function_controller->check_permission('access_setting') == true ||
-                auth()->user()->role_id == 1 )
-                <li class="nav-item dropdown">
-                    <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">{{ __('lang.settings') }}</a>
-                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                        @if (auth()->user()->role_id == 1)
-                        <li class="dropdown-submenu dropdown-hover">
-                            <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">
-                                <i class="fa fa-angle-double-right main-web-color"></i>
-                                {{ __('lang.module_website') }}</a>
-                            <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                                <li>
-                                    <a tabindex="-1" href="{{ route('backend.slide') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                                        {{ __('lang.slide') }}</a>
+                @if ($function_controller->check_permission('access_setting') == true || auth()->user()->role_id == 1)
+                    <li class="nav-item dropdown">
+                        <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" class="nav-link dropdown-toggle">ຈັດການຂໍ້ມູນ</a>
+                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                            @if ($function_controller->check_permission('access_role') == true || auth()->user()->role_id == 1)
+                                <li><a href="{{ route('backend.role') }}" class="dropdown-item"><i
+                                            class="fa fa-angle-double-right main-web-color"></i>
+                                        {{ __('lang.roles') }}</a>
                                 </li>
-                                <li>
-                                    <a tabindex="-1" href="{{ route('backend.blog_type') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                                        {{ __('lang.blog_type') }}</a>
+                            @endif
+                            @if ($function_controller->check_permission('access_user') == true || auth()->user()->role_id == 1)
+                                <li><a href="{{ route('backend.user') }}" class="dropdown-item"><i
+                                            class="fa fa-angle-double-right main-web-color"></i>
+                                        {{ __('lang.users') }}</a>
                                 </li>
-                                <li>
-                                    <a tabindex="-1" href="{{ route('backend.blog') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                                        {{ __('lang.blog') }}</a>
+                            @endif
+                            @if ($function_controller->check_permission('access_departments') == true || auth()->user()->role_id == 1)
+                                <li><a href="{{ route('backend.departments') }}" class="dropdown-item"><i
+                                            class="fa fa-angle-double-right main-web-color"></i>
+                                        ພະແນກ</a>
                                 </li>
-                                <li>
-                                    <a tabindex="-1" href="{{ route('backend.about') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                                        {{ __('lang.about') }}</a>
+                            @endif
+                            @if ($function_controller->check_permission('access_medicine') == true || auth()->user()->role_id == 1)
+                                <li><a href="{{ route('backend.medicine') }}" class="dropdown-item"><i
+                                            class="fa fa-angle-double-right main-web-color"></i>
+                                        ຢາ</a>
                                 </li>
-                            </ul>
-                        </li>
-                        @endif
-                       
-                        @if (
-                        $function_controller->check_permission('access_role') == true ||
-                        auth()->user()->role_id == 1 )
-                        <li><a href="{{ route('backend.role') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                                {{ __('lang.roles') }}</a>
-                        </li>
-                        @endif
-                        @if (
-                        $function_controller->check_permission('access_user') == true ||
-                        auth()->user()->role_id == 1)
-                        <li><a href="{{ route('backend.user') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                                {{ __('lang.users') }}</a>
-                        </li>
-                        @endif
-                        @if (
-                        $function_controller->check_permission('access_user') == true ||
-                        auth()->user()->role_id == 1)
-                        <li><a href="{{ route('backend.departments') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                                ພະແນກ</a>
-                        </li>
-                        @endif
-                        {{-- @if (
-                        $function_controller->check_permission('access_user') == true ||
-                        auth()->user()->role_id == 1)
+                            @endif
+                            @if ($function_controller->check_permission('access_medicine_type') == true || auth()->user()->role_id == 1)
+                                <li><a href="{{ route('backend.medicine_types') }}" class="dropdown-item"><i
+                                            class="fa fa-angle-double-right main-web-color"></i>
+                                        ປະເພດຢາ</a>
+                                </li>
+                            @endif
+                            {{-- @if ($function_controller->check_permission('access_user') == true || auth()->user()->role_id == 1)
                         <li><a href="{{ route('backend.province') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
                             ແຂວງ</a>
                         </li>
                         @endif --}}
-                        {{-- @if (
-                        $function_controller->check_permission('access_user') == true ||
-                        auth()->user()->role_id == 1)
+                            {{-- @if ($function_controller->check_permission('access_user') == true || auth()->user()->role_id == 1)
                         <li><a href="{{ route('backend.district') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
                             ເມືອງ</a>
                         </li>
                         @endif --}}
-                        {{-- @if (
-                        $function_controller->check_permission('access_user') == true ||
-                        auth()->user()->role_id == 1)
+                            {{-- @if ($function_controller->check_permission('access_user') == true || auth()->user()->role_id == 1)
                         <li><a href="{{ route('backend.village') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
                             ບ້ານ</a>
                         </li>
                         @endif --}}
-                     
-                       
-                 
-                        
-                      
-                       
-                    </ul>
-                </li>
-                @endif
-   
-                @if (
-                $function_controller->check_permission('customer') == true ||
-                auth()->user()->role_id == 1 )
-                <li class="nav-item dropdown">
-                    <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">ຄົນໄຂ້</a>
-                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                        <li><a href="{{ route('backend.patients') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                            ຄົນໄຂ້</a>
-                        </li>
-                    </ul>
-                </li>
-                @endif
-                @if (
-                $function_controller->check_permission('customer') == true ||
-                auth()->user()->role_id == 1 )
-                <li class="nav-item dropdown">
-                    <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">ປະຫັວດການປິ່ນປົວ</a>
-                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                        <li><a href="{{ route('create_treatment') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                            ເພີ່ມອາການເບື້ອງຕົ້ນ</a>
-                        </li>
-                        <li><a href="{{ route('backend.treatment') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                            ລາຍການຄົນໄຂ້</a>
-                        </li>
-                    </ul>
-                 
-                </li>
-                @endif
-                @if (
-                $function_controller->check_permission('customer') == true ||
-                auth()->user()->role_id == 1 )
-                <li class="nav-item dropdown">
-                    <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">ການໝາຍຂອງຄົນໄຂ</a>
-                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                        <li><a href="" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                            ການໝາຍຂອງຄົນໄຂ</a>
-                        </li>
-                    </ul>
-                </li>
-                @endif
-        
 
-            <li class="nav-item dropdown">
-                <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">{{ __('lang.report') }}</a>
-                <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                    <li><a href="{{ route('backend.report_all_customer') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                        ລູກຄ້າ ຫຼື ຄົນໄຂທັງໝົດ</a>
+
+
+
+
+
+                        </ul>
                     </li>
-                    <li><a href="{{ route('backend.report_customer_arrear') }}" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                        ລາຍງານການໜັດໝາຍ</a>
+                @endif
+
+                @if ($function_controller->check_permission('access_patient') == true || auth()->user()->role_id == 1)
+                    <li class="nav-item dropdown">
+                        <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" class="nav-link dropdown-toggle">ຄົນໄຂ້</a>
+                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                            <li><a href="{{ route('backend.patients') }}" class="dropdown-item"><i
+                                        class="fa fa-angle-double-right main-web-color"></i>
+                                    ຄົນໄຂ້</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li><a href="" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                        ລາຍງານການຜິດໜັດໝາຍ</a>
+                @endif
+                @if ($function_controller->check_permission('access_treatment') == true || auth()->user()->role_id == 1)
+                    <li class="nav-item dropdown">
+                        <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" class="nav-link dropdown-toggle">ປະຫັວດການປິ່ນປົວ</a>
+                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                            <li><a href="{{ route('create_treatment') }}" class="dropdown-item"><i
+                                        class="fa fa-angle-double-right main-web-color"></i>
+                                    ເພີ່ມອາການເບື້ອງຕົ້ນ</a>
+                            </li>
+                            <li><a href="{{ route('backend.treatment') }}" class="dropdown-item"><i
+                                        class="fa fa-angle-double-right main-web-color"></i>
+                                    ລາຍການຄົນໄຂ້</a>
+                            </li>
+                        </ul>
+
                     </li>
-                    <li><a href="" class="dropdown-item"><i class="fa fa-angle-double-right main-web-color"></i>
-                        ລາຍການຜູ້ລະບົບ</a>
+                @endif
+                @if ($function_controller->check_permission('access_appointments') == true || auth()->user()->role_id == 1)
+                    <li class="nav-item dropdown">
+                        <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" class="nav-link dropdown-toggle">ການໝາຍຂອງຄົນໄຂ</a>
+                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                            <li><a href="" class="dropdown-item"><i
+                                        class="fa fa-angle-double-right main-web-color"></i>
+                                    ການໝາຍຂອງຄົນໄຂ</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="dropdown-divider"></li>
-            </li>
+                @endif
+
+                @if ($function_controller->check_permission('access_report') == true || auth()->user()->role_id == 1)
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false" class="nav-link dropdown-toggle">{{ __('lang.report') }}</a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li><a href="{{ route('backend.report_all_customer') }}" class="dropdown-item"><i
+                                    class="fa fa-angle-double-right main-web-color"></i>
+                                ລູກຄ້າ ຫຼື ຄົນໄຂທັງໝົດ</a>
+                        </li>
+                        <li><a href="{{ route('backend.report_customer_arrear') }}" class="dropdown-item"><i
+                                    class="fa fa-angle-double-right main-web-color"></i>
+                                ລາຍງານການໜັດໝາຍ</a>
+                        </li>
+                        <li><a href="" class="dropdown-item"><i
+                                    class="fa fa-angle-double-right main-web-color"></i>
+                                ລາຍງານການຜິດໜັດໝາຍ</a>
+                        </li>
+                        <li><a href="" class="dropdown-item"><i
+                                    class="fa fa-angle-double-right main-web-color"></i>
+                                ລາຍການຜູ້ລະບົບ</a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                </li>
+                @endif
             </ul>
 
         </div>
@@ -170,13 +162,19 @@
                     <a class="nav-link" data-toggle="nav-item" href="{{ url('localization/en') }}">
                         <i class="flag-icon flag-icon-us"></i> {{ __('lang.english') }}
                     </a>
-                   
+
                 </div>
             </li>
             <li class="nav-item dropdown">
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
-                    <img src="{{ asset('fontend/img/logo1.png')}}" style="width: 30px; height: 30px" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                    @if (auth()->user()->image)
+                        <img src="{{ asset(auth()->user()->image) }}" width="35" height="35"
+                            alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                    @else
+                        <img src="{{ asset('fontend/img/logo1.png') }}" width="35" height="35"
+                            alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                    @endif
                     <span class="brand-text font-weight-light text-md"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right p-0">
@@ -184,7 +182,8 @@
                         <i class="fas fa-user-tie"></i> {{ __('lang.profile') }}
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a data-toggle="modal" data-target="#modal-default" class="nav-link" data-controlsidebar-slide="true" role="button">
+                    <a data-toggle="modal" data-target="#modal-default" class="nav-link"
+                        data-controlsidebar-slide="true" role="button">
                         <i class="fas fa-sign-out-alt main-web-color"></i> {{ __('lang.logout') }}
                     </a>
                 </div>
@@ -193,7 +192,8 @@
 
             </li>
         </ul>
-        <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
@@ -213,7 +213,8 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('lang.cancel') }}</button>
-                <a type="button" href="{{ route('backend.logout') }}" class="btn btn-primary">{{ __('lang.ok') }}</a>
+                <a type="button" href="{{ route('backend.logout') }}"
+                    class="btn btn-primary">{{ __('lang.ok') }}</a>
             </div>
         </div>
         <!-- /.modal-content -->

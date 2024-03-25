@@ -28,7 +28,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-3">
-                                    @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2 || auth()->user()->role_id == 3)
+                                    @if ($function_controller->check_permission('access_add_role') == true || auth()->user()->role_id == 1)
                                         <a wire:click="create" class="btn btn-primary" href="javascript:void(0)"><i
                                                 class="fa fa-plus-circle"></i> {{ __('lang.add') }}</a>
                                     @endif
@@ -85,11 +85,17 @@
                                                 </td>
                                                 <td>
                                                     @if ($item->id != 1)
-                                                        <button wire:click="edit({{ $item->id }})" type="button"
-                                                            class="btn btn-warning"><i class="fas fa-pen"></i></button>
-                                                        <button wire:click="showDestroy({{ $item->id }})"
+                                                        @if ($function_controller->check_permission('access_edit_role') == true || auth()->user()->role_id == 1)
+                                                            <button wire:click="edit({{ $item->id }})"
+                                                                type="button" class="btn btn-warning"><i
+                                                                    class="fas fa-pen"></i></button>
+                                                        @endif
+
+                                                        @if ($function_controller->check_permission('access_delete_role') == true || auth()->user()->role_id == 1)
+                                                            <button wire:click="showDestroy({{ $item->id }})"
                                                             type="button" class="btn btn-danger"> <i
-                                                                class="fa fa-trash"></i></button>
+                                                             class="fa fa-trash"></i></button>
+                                                        @endif
                                                     @endif
                                                 </td>
                                             </tr>
@@ -179,7 +185,9 @@
                                     @foreach ($this->selected as $get_item)
                                         @if (intval($get_item) == $item->id)
                                             @php
-                                                $child_fucntion = Illuminate\Support\Facades\DB::table('function_models')
+                                                $child_fucntion = Illuminate\Support\Facades\DB::table(
+                                                    'function_models',
+                                                )
                                                     ->where('parent_id', $get_item)
                                                     ->get();
 
@@ -189,10 +197,10 @@
 
                                                     <td>
                                                         <input type="checkbox" value="{{ $item_child->id }}"
-                                                            style="width:20px;height:20px ;margin-left:10%; accent-color: #194bff;"
+                                                            style="width:20px;height:20px ; accent-color: #194bff;
+                                                            margin-left:50px"
                                                             wire:model="selected"
-                                                            wire:click="delete_child({{ $item_child->id }})"
-                                                            style="margin-left:10%;">
+                                                            wire:click="delete_child({{ $item_child->id }})">
                                                         @if (Config::get('app.locale') == 'lo')
                                                             {{ $item_child->des_la }}
                                                         @elseif(Config::get('app.locale') == 'en')
@@ -206,17 +214,19 @@
                                                     @foreach ($this->selected as $get_item_child)
                                                         @if (intval($get_item_child) == $item_child->id)
                                                             @php
-                                                                $child_fucntion_child = Illuminate\Support\Facades\DB::table('function_models')
+                                                                $child_fucntion_child = Illuminate\Support\Facades\DB::table(
+                                                                    'function_models',
+                                                                )
                                                                     ->where('parent_id', $item_child->id)
                                                                     ->get();
                                                             @endphp
                                                             @if ($child_fucntion_child->count() > 0)
                                                                 @foreach ($child_fucntion_child as $item_child_two)
-                                                                    <td><input type="checkbox"
+                                                                    <td>
+                                                                        <input type="checkbox"
                                                                             value="{{ $item_child_two->id }}"
                                                                             wire:model="selected"
-                                                                            style="width:20px;height:20px ;margin-left:30%; accent-color: #194bff;"
-                                                                            style="margin-left:20%;">
+                                                                            style="width:20px;height:20px ;margin-left:120px ;accent-color: #194bff;">
                                                                         @if (Config::get('app.locale') == 'lo')
                                                                             {{ $item_child_two->des_la }}
                                                                         @elseif(Config::get('app.locale') == 'en')

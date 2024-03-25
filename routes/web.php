@@ -69,6 +69,11 @@ Route::group(['middleware' => 'adminLogin'], function () {
     Route::get('/detials', App\Livewire\Backend\Treatment\DetialsComponent::class)->name('treatment_detail');
 
 
+    //medicine
+    Route::get('/medicine', App\Livewire\Backend\Medicine\MedicinesComponent::class)->name('backend.medicine');
+    Route::get('/medicine-type', App\Livewire\Backend\Medicine\MedicineTypesComponent::class)->name('backend.medicine_types');
+
+
     
 });
 // fontend//

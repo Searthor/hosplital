@@ -70,14 +70,12 @@ return [
     'download' => 'Download',
     'close' => 'Close',
     'Collateral'=>'Collateral',
-
     'staff_sign'=>'Staff Sign',
     'customer_sign'=>'Customer Sign',
     'chechker_sign'=>'Checker Sign',
     'director_sign'=>'Director Sign',
     'bill_header' =>  'Bill header',
     'bill_footer' => 'Bill footer',
-
     'Collateral_securities' =>'Collateral securities',
     'securities_type' =>'Securities Type',
     'custormers' =>'Custormers',
@@ -91,7 +89,6 @@ return [
     'brand'=>'Brand',
     'back'=>'Back',
     // ============ C ============ //
-
     'created_at'=>'created',
     'choose' => 'Choose',
     'cancle' => 'Cancle',
@@ -100,8 +97,6 @@ return [
     'contact_up' => 'Contact Up',
     'content' => 'Content',
     'car_registration' => 'Car Registration',
-
-
     // ============ D ============ //
     'dashboard' => 'Dashboard',
     'dated' => 'Dated',
@@ -263,5 +258,6 @@ return [
     'required_patient' => 'Please select a patient first',
     'code' => 'Code',
     'fullname' => 'FullName',
+    'ethnicity' => 'Ethnicity',
 ];
  

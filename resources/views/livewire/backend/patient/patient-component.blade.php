@@ -29,7 +29,7 @@
                                 <div class="col-md-2">
                                     <div class="row">
                                         @if (
-                                            $function_controller->check_permission('customer_add') == true ||
+                                            $function_controller->check_permission('access_add_patient') == true ||
                                                 auth()->user()->role_id == 1
                                                )
                                             <div class="col-md-4">
@@ -119,23 +119,14 @@
                                                 </td>
                                                 <td>
                                                     @if (
-                                                        $function_controller->check_permission('customer_edit') == true ||
+                                                        $function_controller->check_permission('access_edit_patient') == true ||
                                                             auth()->user()->role_id == 1)
                                                         <button wire:click="edit({{ $item->id }})" type="button"
                                                             class="btn btn-warning btn-sm"><i
                                                                 class="fas fa-pencil-alt"></i></button>
                                                     @endif
-                                                    @if ($item->file_doc)
-                                                        <a href="{{ route('customers_download', $item->id) }}"
-                                                            target="__back" class="btn btn-info btn-sm"><i
-                                                                class="fas fa-eye"></i></a>
-                                                    @else
-                                                        <a href="{{ route('customers_download', $item->id) }}"
-                                                            class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
-                                                    @endif
-
                                                     @if (
-                                                        $function_controller->check_permission('customer_delete') == true ||
+                                                        $function_controller->check_permission('access_delete_patient') == true ||
                                                             auth()->user()->role_id == 1 
                                                             )
                                                         <button wire:click="showDestroy({{ $item->id }})"
@@ -151,11 +142,11 @@
                                     </tbody>
 
                                 </table>
-                                {{-- @if ($this->page_number != 'all')
+                                @if ($this->page_number != 'all')
                                     <div class="float-right">
                                         {{ $data->links('livewire.backend.pagination.pagination-component') }}
                                     </div>
-                                @endif --}}
+                                @endif
                             </div>
                         </div>
                     </div>

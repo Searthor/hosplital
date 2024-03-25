@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 //customer
 Route::group(['middleware' => ['auth:sanctum', 'customer']], function () {
     Route::post('/update_user_by_regis_driver', [TaxiController::class, 'update_user_by_regis_driver']);

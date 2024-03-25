@@ -51,7 +51,6 @@ class CustomerComponent extends Component
 
 
         $provinces =  Province::get();
-
         $data = Customer::where(function ($q) {
             $q->where('name', 'like', '%' . $this->search . '%')
                 ->orwhere('lastname', 'like', '%' . $this->search . '%')

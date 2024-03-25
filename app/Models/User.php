@@ -19,18 +19,23 @@ class User extends Authenticatable
      */
     protected $fillable = [
         
-        'firstname',
-        'lastname',
+        'id',
+        'code',
+        'f_name',
+        'l_name',
         'phone',
         'email',
         'password',
         'role_id',
-    
-        'vill_id',
+        'village',
         'dis_id',
         'pro_id',
+        'birthday',
+        'gender',
+        'status',
+        'nationality',
+        'ethnicity',
         'departments_id',
-        'del'
     ];
 
     public function get_role()

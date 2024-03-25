@@ -87,8 +87,8 @@
   document.addEventListener('already_data', function(e) {
     Swal.fire({
       title: '@lang("lang.already_data")',
-      icon: "error",
-      iconColor:  'danger',
+      icon: "warning",
+      iconColor:  'warning',
       timer: 3000,
       toast: true,
       position: 'top-right',

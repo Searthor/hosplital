@@ -3,6 +3,7 @@
 namespace App\Livewire\Backend\Settings;
 
 use App\Models\Department;
+use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
@@ -85,5 +86,29 @@ class DepartmentsComponent extends Component
         $this->dep_name_en = $data->dep_name_en;
         $this->detail = $data->dep_detail;
         $this->ID = $data->id;
+    }
+
+
+    public function showDestroy($ids)
+    {
+        $this->dispatch('show-modal-delete');
+        $data = Department::find($ids);
+        $this->ID = $data->id;
+        $this->dep_name_la = $data->dep_name_la;
+        
+    }
+
+    public function destroy($ids)
+    {
+        $check = User::where('department_id',$this->ID)->get();
+        if(count($check)>0){
+            $this->dispatch('can_not_delete');
+            return;
+        }
+        $data = Department::find($ids);
+        $data->delete();
+        $this->dispatch('hide-modal-delete');
+        $this->dispatch('delete');
+        $this->resetform();
     }
 }

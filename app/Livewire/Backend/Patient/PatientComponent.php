@@ -4,19 +4,40 @@ namespace App\Livewire\Backend\Patient;
 
 use App\Models\Patient;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Carbon\Carbon;
 
 class PatientComponent extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     public $hiddenId;
     public $first_name, $last_name, $birthday, $phone, $gender,
         $status, $unit_house, $ethnicity, $village, $province, $district,
         $number_house, $address, $number_doc_person, $doc_person_name, $doc_person_date,
-        $file, $nationality, $job;
+        $file, $nationality, $job,$page_number;
     public $search;
+    public function mount()
+    {
+        $this->page_number = 10;
+    }
+
     public function render()
     {
-        $data = Patient::all();
+        $data = Patient::where(function ($q) {
+            $q->where('f_name', 'like', '%' . $this->search . '%')
+                ->orwhere('l_name', 'like', '%' . $this->search . '%');  
+            })
+        ->where('del',1);
+        if (!empty($data)) {
+            if ($this->page_number == 'all') {
+                $data =  $data->get();
+            } else {
+                $data =  $data->paginate($this->page_number);
+            }
+        } else {
+            $data = [];
+        }
 
         return view('livewire.backend.patient.patient-component', compact('data'))->layout('layouts.backend');
     }
@@ -92,7 +113,6 @@ class PatientComponent extends Component
                     break;
                 }
             }
-
             $data = new Patient();
             $data->f_name = $this->first_name;
             $data->code = 'PT-' . $code;
@@ -103,22 +123,13 @@ class PatientComponent extends Component
             $data->status = (int)$this->status;
             $data->unit = $this->unit_house;
             $data->house_number = $this->number_house;
-            // $data->number_doc_person = $this->number_doc_person;
-            // $data->doc_person_name = $this->doc_person_name;
             $data->nationality = $this->nationality;
             $data->ethnicity = $this->ethnicity;
             $data->village = $this->village;
             $data->city = $this->district;
             $data->province = $this->province;
             $data->job = $this->job;
-            // if ($this->doc_person_date) {
-            //     $data->doc_person_date = $this->doc_person_date;
-            // }
-            // if ($this->file) {
-            //     $file = Carbon::now()->timestamp . '.' . $this->file->extension();
-            //     $this->file_image->storeAs('upload/custormer/', $file);
-            //     $data->file = 'upload/custormer/' . $file;
-            // }
+        
             $data->save();
             $this->resetField();
             $this->dispatch('show-modal-hide');
@@ -201,24 +212,33 @@ class PatientComponent extends Component
             $data->status = (int)$this->status;
             $data->unit = $this->unit_house;
             $data->house_number = $this->number_house;
-            // $data->number_doc_person = $this->number_doc_person;
-            // $data->doc_person_date = $this->doc_person_date;
-            // $data->doc_person_name = $this->doc_person_name;
+
             $data->nationality = $this->nationality;
-        
-            // $data->subject_study = $this->subject_study;
-
-            // if ($this->file) {
-
-            //     $imageName = Carbon::now()->timestamp . '.' . $this->file->extension();
-            //     $this->file->storeAs('upload/custormer', $imageName);
-            //     $data->file = 'upload/custormer/' . $imageName;
-            // }
+     
             
             $data->Update();
             $this->resetField();
             $this->dispatch('show-modal-hide');
             $this->dispatch('edit');
+        } catch (\Exception $ex) {
+            $this->dispatch('something_went_wrong');
+        }
+    }
+
+    public function showDestroy($id)
+    {
+        $this->hiddenId = $id;
+        $this->dispatch('show-modal-delete');
+    }
+
+    public function Destroy($id)
+    {
+        try {
+            $data = Patient::find($id);
+            $data->del = 0;
+            $data->Update();
+            $this->dispatch('hide-modal-delete');
+            $this->dispatch('delete');
         } catch (\Exception $ex) {
             $this->dispatch('something_went_wrong');
         }

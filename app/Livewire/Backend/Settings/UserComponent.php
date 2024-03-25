@@ -10,30 +10,40 @@ use App\Models\Province;
 use App\Models\Role;
 use App\Models\ServiceUnit;
 use App\Models\User;
+use Carbon\Carbon;
 use App\Models\Village;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 class UserComponent extends Component
 {
     use WithPagination;
+    use WithFileUploads;
     protected $paginationTheme = 'bootstrap';
     public
         $hiddenId,
-        $search, $page_number,
+        $search,
+        $image,
+        $page_number,
         $firstname,
         $lastname,
+        $birthday,
         $phone,
-        $email,
-        $password, $role_id,
+        $password,
+        $role_id,
         $confirm_password,
-        $branch_id,
-        $vill_id,
+        $village,
         $dis_id,
         $pro_id,
-        $districts = [],
-        $villages = [];
-    
+        $nationality,
+        $status,
+        $gender,
+        $ethnicity,
+        $department_id,
+        $old_image,
+        $districts = [];
+
     protected $function_controller;
     public function __construct()
     {
@@ -43,6 +53,7 @@ class UserComponent extends Component
     {
         $this->dispatch('role_id');
     }
+
     public function mount()
     {
         $this->search = '';
@@ -51,11 +62,12 @@ class UserComponent extends Component
     public function render()
     {
         $data = User::select('users.*')->where(function ($q) {
-            $q->where('users.firstname', 'like', '%' . $this->search . '%')
-                ->orwhere('users.lastname', 'like', '%' . $this->search . '%')
+            $q->where('users.f_name', 'like', '%' . $this->search . '%')
+                ->orwhere('users.l_name', 'like', '%' . $this->search . '%')
+                ->orwhere('users.code', 'like', '%' . $this->search . '%')
                 ->orwhere('users.phone', 'like', '%' . $this->search . '%');
         })->where('users.del', 1)->orderBy('id', 'desc');
-        
+
         if (!empty($data)) {
             if ($this->page_number == 'all') {
                 $data = $data->get();
@@ -65,22 +77,15 @@ class UserComponent extends Component
         } else {
             $data = [];
         }
-        
-       if(auth()->user()->role_id == 1){
-            $roles = Role::select('roles.*')->get();
-       }else{
-            $roles = Role::select('roles.*')->whereNotIn('roles.id',[1,2,3])->get();
-       }
-       
+
         if ($this->pro_id) {
             $this->districts =  District::where('province_id', $this->pro_id)->get();
         }
-        if ($this->dis_id) {
-            $this->villages =  Village::where('district_id', $this->dis_id)->get();
-        }
         $provinces =  Province::get();
-        
-        return view('livewire.backend.settings.user-component', compact('data', 'roles','provinces'))->layout('layouts.backend');
+        $depament = Department::all();
+        $roles = Role::all();
+
+        return view('livewire.backend.settings.user-component', compact('depament', 'data', 'roles', 'provinces'))->layout('layouts.backend');
     }
     public function resetField()
     {
@@ -88,37 +93,26 @@ class UserComponent extends Component
         $this->lastname = '';
         $this->hiddenId = '';
         $this->phone = '';
-        $this->email = '';
         $this->password = '';
         $this->confirm_password = '';
         $this->role_id = '';
         $this->pro_id = '';
-        $this->vill_id = '';
         $this->dis_id = '';
-       
+        $this->village = '';
+        $this->ethnicity = '';
+        $this->nationality = '';
+        $this->old_image = '';
+        $this->image= '';
+        $this->gender= '';
+        $this->status= '';
+        $this->department_id= '';
+        $this->birthday= null;
     }
     public function create()
     {
         $this->resetField();
         $this->dispatch('show-modal-add');
     }
-    protected $rules = [
-        'firstname' => 'required',
-        'lastname' => 'required',
-        'phone' => 'required',
-        'password' => 'required',
-        'role_id' => 'required',
-        'pro_id' => 'required',
-        'dis_id' => 'required',
-        'vill_id' => 'required',
-        'confirm_password' => 'required',
-       
-    ];
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
-
     public function Store()
     {
         if ($this->hiddenId) {
@@ -128,34 +122,60 @@ class UserComponent extends Component
                     return;
                 }
             }
+       
+            $this->validate([
+                'firstname' => 'required',
+                'birthday' => 'required',
+                'gender' => 'required',
+                'phone' => 'required|unique:users,phone,' .$this->hiddenId,
+                'role_id' => 'required',
+                'department_id' => 'required',
+                'nationality' => 'required',
+                'ethnicity' => 'required',
+            ], [
+                'firstname.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
+             
+                'phone.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
+                'phone.unique' => 'ຂໍ້ມູນນີ້ມີໃນລະບົບເເລ້ວ!',
+                'role_id.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
+                'depament_id.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
+                'nationality.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
+                'ethnicity.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
+                'gender.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
+                'birthday.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
+              
+            ]);
+
             try {
                 $data = User::find($this->hiddenId);
-                if ($this->firstname) {
-                    $data->firstname = $this->firstname;
-                }
-                if ($this->lastname) {
-                    $data->lastname = $this->lastname;
-                }
-                if ($this->phone) {
-                    $data->phone = $this->phone;
-                }
-                $data->email = $this->email;
+                $data->f_name = $this->firstname;
+                $data->l_name = $this->lastname;
+                $data->gender = $this->gender;
+                $data->birthday = $this->birthday;
+                $data->phone = $this->phone;
                 if ($this->password) {
                     $data->password = bcrypt($this->password);
+                } else {
+                    $data->password = bcrypt($this->phone);
                 }
-                if ($this->role_id) {
-                    $data->role_id = $this->role_id;
-                }
-                if ($this->vill_id) {
-                    $data->vill_id = $this->vill_id;
+                $data->role_id = $this->role_id;
+                $data->village = $this->village;
+                if ($this->dis_id) {
+                    $data->dis_id = $this->dis_id;
                 }
                 if ($this->pro_id) {
                     $data->pro_id = $this->pro_id;
                 }
-                if ($this->dis_id) {
-                    $data->dis_id = $this->dis_id;
+                $data->nationality = $this->nationality;
+                $data->status = $this->status;
+                $data->ethnicity = $this->ethnicity;
+                $data->department_id = $this->department_id;
+                if ($this->image) {
+                    $image= Carbon::now()->timestamp . '.' . $this->image->extension();
+                    $this->image->storeAs('upload/doctor/', $image);
+                    $data->image = 'upload/doctor/' . $image;
                 }
-                $data->save();
+                $data->update();
                 $this->resetField();
                 $this->dispatch('show-modal-hide');
                 $this->dispatch('edit');
@@ -163,43 +183,78 @@ class UserComponent extends Component
                 $this->dispatch('something_went_wrong');
             }
         } else {
-            $this->validate();
+            $this->validate([
+                'firstname' => 'required',
+                'birthday' => 'required',
+                'gender' => 'required',
+                'phone' => 'required|unique:users',
+                'role_id' => 'required',
+                'department_id' => 'required',
+                'nationality' => 'required',
+                'ethnicity' => 'required',
+            ], [
+                'firstname.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
+             
+                'phone.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
+                'phone.unique' => 'ຂໍ້ມູນນີ້ມີໃນລະບົບເເລ້ວ!',
+                'role_id.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
+                'depament_id.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
+                'nationality.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
+                'ethnicity.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
+                'gender.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
+                'birthday.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
+            ]);
+
             $check_phone =  User::where('phone', $this->phone)->first();
-            if($check_phone){
+            if ($check_phone) {
                 $this->dispatch('phone_is_already');
                 return;
             }
-            if ($this->function_controller->check_admin() == true) {
-                $this->validate([
-                    'branch_id' => 'required',
-                    'service_units_id' => 'required',
-                ], [
-                    'branch_id.required' => 'ເລືອກສາຂາກ່ອນ',
-                    'service_units_id' => 'ເລືອກໜ່ວຍບໍລະການກ່ອນ'
-                ]);
+            if ($this->password) {
+                if ($this->password != $this->confirm_password) {
+                    $this->dispatch('something_went_wrong');
+                    return;
+                }
             }
-            if($this->function_controller->check_permission('access_user_service_unit') ==  true){
-                $this->validate([
-                    'service_units_id' => 'required',
-                ], [
-                    'service_units_id' => 'ເລືອກໜ່ວຍບໍລະການກ່ອນ'
-                ]);
+            $code = '';
+            while (true) {
+                $code = rand('1000000', '9999999');
+                $check_code = User::where('code', $code)->get();
+                if (count($check_code) == 0) {
+                    break;
+                }
             }
-            if ($this->password != $this->confirm_password) {
-                $this->dispatch('something_went_wrong');
-                return;
-            }
+
             try {
                 $data  =  new User();
-                $data->firstname = $this->firstname;
-                $data->lastname = $this->lastname;
+                $data->code = $code;
+                $data->f_name = $this->firstname;
+                $data->l_name = $this->lastname;
+                $data->gender = $this->gender;
+                $data->birthday = $this->birthday;
                 $data->phone = $this->phone;
-                $data->email = $this->email;
-                $data->password = bcrypt($this->password);
+                if ($this->password) {
+                    $data->password = bcrypt($this->password);
+                } else {
+                    $data->password = bcrypt($this->phone);
+                }
                 $data->role_id = $this->role_id;
-                $data->vill_id = $this->vill_id;
-                $data->dis_id = $this->dis_id;
-                $data->pro_id = $this->pro_id;
+                $data->village = $this->village;
+                if ($this->dis_id) {
+                    $data->dis_id = $this->dis_id;
+                }
+                if ($this->pro_id) {
+                    $data->pro_id = $this->pro_id;
+                }
+                $data->nationality = $this->nationality;
+                $data->status = $this->status;
+                $data->ethnicity = $this->ethnicity;
+                $data->department_id = $this->department_id;
+                if ($this->image) {
+                    $image= Carbon::now()->timestamp . '.' . $this->image->extension();
+                    $this->image->storeAs('upload/doctor/', $image);
+                    $data->image = 'upload/doctor/' . $image;
+                }
                 $data->save();
                 $this->resetField();
                 $this->dispatch('show-modal-hide');
@@ -214,26 +269,21 @@ class UserComponent extends Component
         $this->resetField();
         $this->hiddenId = $id;
         $data = User::find($id);
-        $this->firstname = $data->firstname;
-        $this->lastname = $data->lastname;
+        $this->firstname = $data->f_name;
+        $this->lastname = $data->l_name;
         $this->phone = $data->phone;
-        $this->email = $data->email;
+        $this->birthday = $data->birthday;
+        $this->nationality = $data->nationality;
+        $this->status = $data->status;
+        $this->ethnicity = $data->ethnicity;
+        $this->department_id = $data->department_id;
+        $this->gender = $data->gender;
         $this->role_id = $data->role_id;
-        $this->branch_id = $data->branches_id;
-        $this->vill_id = $data->vill_id;
         $this->pro_id = $data->pro_id;
         $this->dis_id = $data->dis_id;
+        $this->village = $data->village;
+        $this->old_image = $data->image;
         $this->dispatch('show-modal-add');
-    }
-    public function update()
-    {
-        try {
-            $this->resetField();
-            $this->dispatch('show-modal-hide');
-            $this->dispatch('edit');
-        } catch (\Error $ex) {
-            $this->dispatch('something_went_wrong');
-        }
     }
     public function showDestroy($ids)
     {
@@ -246,8 +296,7 @@ class UserComponent extends Component
         $ids = $this->hiddenId;
         try {
             $data = User::find($ids);
-            $data->del = 0;
-            $data->update();
+            $data->delete();
             $this->resetField();
             $this->dispatch('hide-modal-delete');
             $this->dispatch('delete');
