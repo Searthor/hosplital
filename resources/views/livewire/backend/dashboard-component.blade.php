@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-info">
+                    <div class="small-box bg-info" >
                         <div class="inner">
                             <h3 style="font-size:2.5vw;">{{count($all_user)}}  ຄົນ</h3>
                             <p>ຜູ້ໃຊ້ລະບົບທັງໜົດ</p>
@@ -37,7 +37,7 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-success">
+                    <div class="small-box bg-success" >
                         <div class="inner">
                             <h3 style="font-size:2.5vw;">{{count($all_patient)}} ຄົນ</h3>
                             <p>ຄົນໄຂທັງໝົດ</p>
@@ -65,7 +65,7 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box " style="background: rgb(255, 154, 154)">
+                    <div class="small-box bg-danger">
                         <div class="inner">
                             <h3 style="font-size:2.5vw;">{{count($all_treatment)}} ລາຍການ</h3>
                             <p>ລາຍການປະຫວັດ</p>
@@ -80,5 +80,72 @@
             </div>
         </div>
 
+        <div class="position-relative my-4 p-4 " >
+            <canvas  id="visitors-chart" height="300" ></canvas>
+        </div>
+
+
     </div>
 </div>
+
+@push('scripts')
+<script>
+    var count = <?php echo json_encode($count); ?>;
+    var date = <?php echo json_encode($date); ?>;
+    // Initialize the chart with initial data
+    var $visitorsChart = $('#visitors-chart');
+    var visitorsChart = new Chart($visitorsChart, {
+        data: {
+            labels: date,
+            datasets: [{
+                type: 'line',
+                data: count,
+                backgroundColor: 'transparent',
+                borderColor: '#13B7D2',
+                pointBorderColor: '#13B7D2',
+                pointBackgroundColor: '#13B7D2',
+                fill: false
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            tooltips: {
+                mode: 'index',
+                intersect: true
+            },
+            hover: {
+                mode: 'index',
+                intersect: true
+            },
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    gridLines: {
+                        display: true,
+                        lineWidth: '4px',
+                        color: 'rgba(0, 0, 0, .2)',
+                        zeroLineColor: 'transparent'
+                    },
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        display: true
+                    },
+                    ticks: {
+                        maxRotation: 45, // Rotate the labels by 90 degrees
+                        minRotation: 45  // Rotate the labels by 90 degrees
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+
+
+@endpush

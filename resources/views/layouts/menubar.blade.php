@@ -17,12 +17,11 @@
         </a>
         <!-- Left navbar links -->
         <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-
             <ul class="navbar-nav">
                 @if ($function_controller->check_permission('access_setting') == true || auth()->user()->role_id == 1)
                     <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" class="nav-link dropdown-toggle">ຈັດການຂໍ້ມູນ</a>
+                            aria-expanded="false" class="nav-link dropdown-toggle"> <i class="fa fa-gear text-primary"></i> ຈັດການຂໍ້ມູນ</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                             @if ($function_controller->check_permission('access_role') == true || auth()->user()->role_id == 1)
                                 <li><a href="{{ route('backend.role') }}" class="dropdown-item"><i
@@ -82,7 +81,7 @@
                 @if ($function_controller->check_permission('access_patient') == true || auth()->user()->role_id == 1)
                     <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" class="nav-link dropdown-toggle">ຄົນໄຂ້</a>
+                            aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-user text-primary"></i> ຄົນໄຂ້</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                             <li><a href="{{ route('backend.patients') }}" class="dropdown-item"><i
                                         class="fa fa-angle-double-right main-web-color"></i>
@@ -94,7 +93,7 @@
                 @if ($function_controller->check_permission('access_treatment') == true || auth()->user()->role_id == 1)
                     <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" class="nav-link dropdown-toggle">ປະຫັວດການປິ່ນປົວ</a>
+                            aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-history text-primary"></i>ປະຫັວດການປິ່ນປົວ</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                             <li><a href="{{ route('create_treatment') }}" class="dropdown-item"><i
                                         class="fa fa-angle-double-right main-web-color"></i>
@@ -111,7 +110,7 @@
                 @if ($function_controller->check_permission('access_appointments') == true || auth()->user()->role_id == 1)
                     <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" class="nav-link dropdown-toggle">ການໝາຍຂອງຄົນໄຂ</a>
+                            aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-calendar-check text-primary"></i> ການນັດໝາຍ</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                             <li><a href="" class="dropdown-item"><i
                                         class="fa fa-angle-double-right main-web-color"></i>
@@ -124,7 +123,8 @@
                 @if ($function_controller->check_permission('access_report') == true || auth()->user()->role_id == 1)
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false" class="nav-link dropdown-toggle">{{ __('lang.report') }}</a>
+                        aria-expanded="false" class="nav-link dropdown-toggle"><i
+                        class="fas fa-chart-line text-primary"></i> {{ __('lang.report') }}</a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                         <li><a href="{{ route('backend.report_all_customer') }}" class="dropdown-item"><i
                                     class="fa fa-angle-double-right main-web-color"></i>

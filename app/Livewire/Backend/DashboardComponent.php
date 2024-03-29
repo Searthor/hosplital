@@ -17,7 +17,17 @@ class DashboardComponent extends Component
         $all_patient = Patient::all();
         $all_treatment = Treatments::all();
         $all_treatment_today = Treatments::all();
-        return view('livewire.backend.dashboard-component',compact('all_user','all_patient','all_treatment','all_treatment_today'))->layout('layouts.backend');
+        $count_Patient = Patient::selectRaw('DATE(created_at) as date, count(id) as count_id')
+                ->groupBy('date')
+                ->get();
+        $date =[];
+        $count =[];
+        foreach($count_Patient as $item){
+            $date[] = $item->date;
+            $count[] = $item->count_id;
+
+        }
+        return view('livewire.backend.dashboard-component',compact('all_user','all_patient','all_treatment','all_treatment_today','date','count'))->layout('layouts.backend');
     }
     public function logout()
     {
