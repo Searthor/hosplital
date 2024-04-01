@@ -153,11 +153,11 @@ class UserComponent extends Component
                 $data->gender = $this->gender;
                 $data->birthday = $this->birthday;
                 $data->phone = $this->phone;
+
                 if ($this->password) {
                     $data->password = bcrypt($this->password);
-                } else {
-                    $data->password = bcrypt($this->phone);
-                }
+                } 
+                
                 $data->role_id = $this->role_id;
                 $data->village = $this->village;
                 if ($this->dis_id) {
