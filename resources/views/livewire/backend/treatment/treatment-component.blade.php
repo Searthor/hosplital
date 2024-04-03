@@ -101,7 +101,11 @@
                                                 Admin
                                             </td>
                                             <td class="text-center">
-                                                <a href="" class="text-danger text-lg">
+                                                {{-- <<button wire:click="showDestroy({{ $item->id }})"
+                                                    type="button" class="btn btn-danger btn-sm"><i
+                                                        class="fa fa-trash"></i></button> --}}
+                                                <a wire:click="showDestroy({{ $item->id }})"
+                                                    type="button" class="btn btn-danger btn-sm">
                                                     <i  class="fa fa-trash"></i>
                                                 </a>
                                             </td>
