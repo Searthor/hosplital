@@ -259,5 +259,6 @@ return [
     'code' => 'Code',
     'fullname' => 'FullName',
     'ethnicity' => 'Ethnicity',
+    'yourwelcome' => 'Your Welcome',
 ];
  
