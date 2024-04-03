@@ -26,7 +26,7 @@ class CreateTreatmentComponent extends Component
 
     public function render()
     {
-        $data = Patient::all();
+        $data = Patient::where("del", 1)->get();
         return view('livewire.backend.treatment.create-treatment-component', compact('data'))->layout('layouts.backend');
     }
 
