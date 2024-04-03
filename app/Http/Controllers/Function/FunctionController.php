@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Credit;
 use App\Models\FunctionAvailable;
 use App\Models\FunctionModel;
+use App\Models\Patient;
+use App\Models\Treatments;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -36,24 +38,60 @@ class FunctionController extends Controller
         return false;
     }
     public function generate_code($type)
-    {
-        $check_code = Credit::orderBy('id', 'desc')->first();
-        if ($type == 'credit') {
-            $code = !empty($check_code->code) ?  $check_code->code : 0;
-        }
-        if (intval($code) < 100) {
-            if (intval(substr($code, 1, 2)) <= 99 && intval(substr($code, 1, 2)) >= 10) {
-                $code = '0' . (intval(substr($code, 1, 2))  + 1);
-            } else if (intval(substr($code, 2, 1)) < 10 && intval(substr($code, 2, 1)) >= 0) {
-                $code = '00' . (intval(substr($code, 2, 1)) + 1);
-            } else {
-                $code = intval($code) + 1;
-            }
-        } else {
-            $code = intval($code) + 1;
-        }
-        return $code;
+{
+    // Fetch the last patient code
+    // Fetch the last patient code
+    if($type =='Patient'){
+        $last_patient = Patient::orderBy('id', 'desc')->first();
     }
+    if($type =='Treatments'){
+        $last_patient = Treatments::orderBy('id', 'desc')->first();
+    }
+    
+    
+    // Check if there's an existing code
+    $last_code = $last_patient ? $last_patient->code : '000000';
+
+    // Extract numeric part of the code
+    $numeric_part = intval(substr($last_code, 3));
+
+    // Increment numeric part by 1
+    $new_numeric_part = str_pad($numeric_part + 1, 6, '0', STR_PAD_LEFT); // Changed to 6 digits
+
+    // Construct the new code
+    $new_code = $new_numeric_part;
+
+    return $new_code;
+
+    return $new_code;
+}
+
+    // public function generate_code($type)
+    // {
+    //     $check_code = Patient::orderBy('id', 'desc')->first();
+    //     if ($type == 'Patient') {
+    //         $code = !empty($check_code->code) ?  $check_code->code : 0;
+    //     }
+
+       
+    //     if (intval($code) < 10000) {
+    //         if (intval(substr($code, 1, 4)) <= 99 && intval(substr($code, 1, 4)) >= 9) {
+    //             return '000' . (intval(substr($code, 1, 4))  + 1);
+    //         } elseif (intval(substr($code, 1, 4)) <= 999 && intval(substr($code, 1, 4)) >= 99) {
+    //             return '00' . (intval(substr($code, 1, 4))  + 1);
+    //         } elseif (intval(substr($code, 1, 4)) <= 9999 && intval(substr($code, 1, 4)) >= 999) {
+    //             return '0' . (intval(substr($code, 1, 4))  + 1);
+    //         } else if (intval(substr($code, 4, 1)) < 10 && intval(substr($code, 4, 1)) >= 0) {
+    //             return '0000' . (intval(substr($code, 4, 1)) + 1);
+    //         } else {
+    //             return intval($code) + 1;
+    //         }
+    //     } else {
+    //         return intval($code) + 1;
+    //     }
+    //     return $code;
+    
+    // }
     public function cal_age($date)
     {
         $dob = Carbon::createFromFormat('Y-m-d', $date);

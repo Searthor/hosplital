@@ -350,9 +350,60 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>{{__('lang.province')}}</label>
+                                       <select name="" id="" class="form-control">
+                                            <option value="">{{__('lang.select')}} {{__('lang.province')}}</option>
+                                       </select>
+                                        @error('detail')
+                                            <span style="color: red" class="error">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
                                 
                             </div>
-                          
+                            <h2>ຂໍ້ມູນຕິດຕໍ່ສໍາຮອງ</h2>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>{{__('lang.fullname')}}</label>
+                                        <input type="text" class="form-control"
+                                            wire:model.live='' placeholder="{{__('lang.fullname')}}">
+                                        @error('')
+                                            <span style="color: red" class="error">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>ສາຍພົວພັນ</label>
+                                        <select name="" id="" class="form-control">
+                                            <option value="">{{__('lang.select')}}</option>
+                                            <option value="">ພໍ່</option>
+                                            <option value="">ແມ່</option>
+                                            <option value="">ອ້າຍ</option>
+                                            <option value="">ເອື້ອຍ</option>
+                                            <option value="">ນ້ອງ</option>
+                                            <option value="">ອື່ນໆ</option>
+                                        </select>
+                                        @error('out_doc_person_name')
+                                            <span style="color: red" class="error">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>{{__('lang.phone')}}</label>
+                                        <input type="text" class="form-control" wire:model.live='doc_person_date'>
+                                        @error('doc_person_date')
+                                            <span style="color: red" class="error">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>      
+                            </div>
+
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{__('lang.details')}}</label>
@@ -362,6 +413,9 @@
                                     @enderror
                                 </div>
                             </div>
+                         
+
+
 
                             <div class="row">
                                 <div class="col-md-3">

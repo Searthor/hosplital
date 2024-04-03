@@ -25,8 +25,6 @@ class CustomerComponent extends Component
         $number_house, $address, $number_doc_person, $doc_person_name, $doc_person_date,
         $file,$nationality,$job;
     public $search;
-
-   
     protected $function_controller;
     public function __construct()
     {
@@ -39,7 +37,6 @@ class CustomerComponent extends Component
     }
     public function render()
     {
-
         if ($this->pro_id) {
             $this->districts =  District::where('province_id', $this->pro_id)->get();
         }

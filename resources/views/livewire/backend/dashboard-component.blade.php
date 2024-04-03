@@ -83,8 +83,6 @@
         <div class="position-relative my-4 p-4 " >
             <canvas  id="visitors-chart" height="300" ></canvas>
         </div>
-
-
     </div>
 </div>
 

@@ -107,7 +107,7 @@
                                                     class="form-control">
                                                     <option value="">--ກະລຸນາເລືອກຄົນໄຂ້--</option>
                                                     @foreach ($data as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->f_name }}
+                                                        <option value="{{ $item->id }}">({{$item->code}}) {{ $item->f_name }}
                                                             {{ $item->l_name }}</option>
                                                     @endforeach
                                                 </select>
@@ -118,18 +118,7 @@
                                             @enderror --}}
 
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="">ລະຫັດ <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" readonly wire:model='code'
-                                                    value="435342">
-                                                @error('code')
-                                                    <span style="color: red" class="error">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-3">
+                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="">ລວງສູງ(cm)<span
                                                         class="text-danger">*</span></label>
@@ -142,7 +131,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label for="">ນໍ້າໜັກ<span class="text-danger">*</span></label>
+                                                <label for="">ນໍ້າໜັກ(kg)<span class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" wire:model='weight'>
                                                 @error('weight')
                                                     <span style="color: red" class="error">{{ $message }}</span>
@@ -189,6 +178,22 @@
                                                         class="text-danger">*</span></label>
                                                 <input type="date" class="form-control" wire:model='date'>
                                                 @error('date')
+                                                    <span style="color: red" class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="">ທ່ານໜໍ<span
+                                                        class="text-danger">*</span></label>
+                                                <select wire:model='doctor_id' class="form-control">
+                                                    <option value="">{{__('lang.select')}}</option>
+                                                    @foreach ($doctor as $item)
+                                                        <option value="{{$item->id}}">{{$item->f_name}} {{$item->l_name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('doctor_id')
                                                     <span style="color: red" class="error">{{ $message }}</span>
                                                 @enderror
                                             </div>

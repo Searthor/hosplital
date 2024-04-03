@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Backend\Treatment;
 
+use App\Http\Controllers\Function\FunctionController;
 use App\Models\Patient;
 use App\Models\Treatments;
+use App\Models\User;
 use Livewire\Component;
 
 class CreateTreatmentComponent extends Component
@@ -13,21 +15,20 @@ class CreateTreatmentComponent extends Component
         $vak­_saeng, $date, $symptom, $old_new;
     public function mount()
     {
-        $code = '';
-        while (true) {
-            $code = rand('100000', '999999');
-            $check_code = Treatments::where('code', $code)->get();
-            if (count($check_code) == 0) {
-                break;
-            }
-        }
+        $code = $this->function_controller->generate_code('Treatments');
         $this->code = 'TM-' . $code;
+    }
+    protected $function_controller;
+    public function __construct()
+    {
+        $this->function_controller = app()->make(FunctionController::class);
     }
 
     public function render()
     {
         $data = Patient::all();
-        return view('livewire.backend.treatment.create-treatment-component', compact('data'))->layout('layouts.backend');
+        $doctor = User::where('role_id','!=',1)->get();
+        return view('livewire.backend.treatment.create-treatment-component', compact('data','doctor'))->layout('layouts.backend');
     }
 
 

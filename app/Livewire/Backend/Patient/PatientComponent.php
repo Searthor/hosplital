@@ -5,6 +5,8 @@ namespace App\Livewire\Backend\Patient;
 use App\Models\Patient;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Http\Controllers\Function\FunctionController;
+use App\Models\Treatments;
 use Carbon\Carbon;
 
 class PatientComponent extends Component
@@ -17,6 +19,13 @@ class PatientComponent extends Component
         $number_house, $address, $number_doc_person, $doc_person_name, $doc_person_date,
         $file, $nationality, $job,$page_number;
     public $search;
+
+    protected $function_controller;
+    public function __construct()
+    {
+        $this->function_controller = app()->make(FunctionController::class);
+    }
+
     public function mount()
     {
         $this->page_number = 10;
@@ -26,7 +35,8 @@ class PatientComponent extends Component
     {
         $data = Patient::where(function ($q) {
             $q->where('f_name', 'like', '%' . $this->search . '%')
-                ->orwhere('l_name', 'like', '%' . $this->search . '%');  
+                ->orwhere('l_name', 'like', '%' . $this->search . '%')
+                ->orwhere('code', 'like', '%' . $this->search . '%');  
             })
         ->where('del',1);
         if (!empty($data)) {
@@ -73,6 +83,8 @@ class PatientComponent extends Component
 
     public function Store()
     {
+        
+        // dd( $this->function_controller);
 
         $this->validate([
             'first_name' => 'required',
@@ -105,14 +117,7 @@ class PatientComponent extends Component
         ]);
 
         try {
-            $code = '';
-            while (true) {
-                $code = rand('100000', '999999');
-                $check_code = Patient::where('code', $code)->get();
-                if (count($check_code) == 0) {
-                    break;
-                }
-            }
+            $code = $this->function_controller->generate_code('Patient');
             $data = new Patient();
             $data->f_name = $this->first_name;
             $data->code = 'PT-' . $code;
@@ -233,10 +238,14 @@ class PatientComponent extends Component
 
     public function Destroy($id)
     {
+        $check =  Treatments::where('patient_id',$id)->get();
+        if(count($check)> 0){
+            $this->dispatch('can_not_delete');
+            return;
+        }
         try {
             $data = Patient::find($id);
-            $data->del = 0;
-            $data->Update();
+            $data->delete();
             $this->dispatch('hide-modal-delete');
             $this->dispatch('delete');
         } catch (\Exception $ex) {
