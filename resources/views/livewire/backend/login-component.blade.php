@@ -4,7 +4,7 @@
             <img src="{{ asset('fontend/img/logo1.png')}}"  alt="">
         </div>
         <div class="box1"></div>
-        <h2>{{__('lang.yourwelcome')}}</h2>
+        <h2>{{__('lang.your_welcome')}}</h2>
         <div class="box2"></div>
         <div class="form">
             <input type="text" wire:model="phone" wire:keydown.enter="login" class="form-control @error('phone') is-invalid @enderror" placeholder="{{(__('lang.phone'))}}">

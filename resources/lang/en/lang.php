@@ -259,6 +259,11 @@ return [
     'code' => 'Code',
     'fullname' => 'FullName',
     'ethnicity' => 'Ethnicity',
-    'yourwelcome' => 'Your Welcome',
+    'your_welcome' => 'Your Welcome',
+    'all_user' => 'All Users',
+    'all_patients' => 'All Patients',
+    'all_appointment' => 'All Appointments',
+    'list_of_history' => 'List of history',
+    'detail' => 'Detail',
 ];
  
