@@ -112,9 +112,9 @@
                         <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-calendar-check text-primary"></i> ການນັດໝາຍ</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                            <li><a href="" class="dropdown-item"><i
+                            <li><a href="{{ route('backend.appointment') }}" class="dropdown-item"><i
                                         class="fa fa-angle-double-right main-web-color"></i>
-                                    ການໝາຍຂອງຄົນໄຂ</a>
+                                    ການນັດໝາຍ</a>
                             </li>
                         </ul>
                     </li>

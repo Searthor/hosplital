@@ -68,6 +68,21 @@
     });
   });
 </script>
+
+
+<script>
+  document.addEventListener('required_time', function(e) {
+    Swal.fire({
+      title: "ກະລຸນາເລືອກເວລາກ່ອນ",
+      icon: "error",
+      iconColor:  'danger',
+      timer: 3000,
+      toast: true,
+      position: 'top-right',
+      showConfirmButton: false,
+    });
+  });
+</script>
 {{-- =================================== login_failded ======================================= --}}
 <script>
   document.addEventListener('login_faild', function(e) {

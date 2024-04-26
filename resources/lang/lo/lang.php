@@ -268,10 +268,11 @@ return [
     'target' => 'ເປົ້າຫມາຍ',
     'nationality' => 'ສັນຊາດ',
     'status_life' => 'ສະຖານະພາບ',
-    'required_patient' => 'ກາລຸນາເລືອກຄົນເຈັບກ່ອນ',
+    'required_patient' => 'ກາລຸນາເລືອກຄົນໄຂ້',
     'required_weight' => 'ກະລຸນາປ້ອມນໍ້າໜັກກ່ອນ',
     'code' => 'ລະຫັດ',
     'fullname' => 'ຊື່ ແລະ ນາມສະກຸນ',
     'ethnicity' => 'ຊົນເຜົ່າ',
-    'Your Welcome'=> 'ຍິນດິຕ້ອນຮັບເຂົ້າສູ່ລະບົບ'
+    'yourwelcome'=> 'ຍິນດິຕ້ອນຮັບເຂົ້າສູ່ລະບົບ',
+    'please_information'=> 'ກະລຸນາປ້ອມຂໍ້ມູນ'
 ];

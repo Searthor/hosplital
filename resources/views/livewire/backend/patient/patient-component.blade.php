@@ -112,10 +112,10 @@
                                                     {{$item->village}}
                                                 </td>
                                                 <td>
-                                                    {{$item->city}}
+                                                    {{$item->district->name_la}}
                                                 </td>
                                                 <td>
-                                                    {{$item->province}}
+                                                    {{$item->province->name_la}}
                                                 </td>
                                                 <td>
                                                     @if (
@@ -270,56 +270,63 @@
                                 
                             </div>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>{{ __('lang.province') }}<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" placeholder="{{__('lang.province')}}" wire:model='province'>
-                                        @error('province')
-                                            <span style="color: red" class="error">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>{{ __('lang.district') }}<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" placeholder="{{__('lang.district')}}" wire:model='district'>
-                                        @error('district')
+                                        <label for="">
+                                            {{ __('lang.province') }}</label>
+                                        <select class="form-control" wire:model.live="pro_id">
+                                            <option value="">{{ __('lang.province') }}</option>
+                                            @foreach ($provinces as $item)
+                                                <option value="{{ $item->id }}">
+                                                    @if (Config::get('app.locale') == 'lo')
+                                                        {{ $item->name_la }}
+                                                    @elseif(Config::get('app.locale') == 'en')
+                                                        {{ $item->name_en }}
+                                                    @endif
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('pro_id')
                                             <span style="color: red"
                                                 class="error">{{ __('lang.please_fill_information_first') }}</span>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>{{ __('lang.village') }}<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" placeholder="{{__('lang.village')}}" wire:model='village'>
+                                        <label for="">
+                                            {{ __('lang.district') }}</label>
+                                        <select class="form-control" wire:model.live="dis_id">
+                                            <option value="">{{ __('lang.district') }}</option>
+                                            @foreach ($districts as $item)
+                                                <option value="{{ $item->id }}"
+                                                    @if ($this->dis_id == $item->id) selected @endif>
+                                                    @if (Config::get('app.locale') == 'lo')
+                                                        {{ $item->name_la }}
+                                                    @elseif(Config::get('app.locale') == 'en')
+                                                        {{ $item->name_en }}
+                                                    @endif
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('dis_id')
+                                            <span style="color: red"
+                                                class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">
+                                            {{ __('lang.village') }}</label>
+                                        <input type="text" wire:model='village' class="form-control" placeholder="{{ __('lang.village') }}.....">
                                         @error('village')
                                             <span style="color: red"
                                                 class="error">{{ __('lang.please_fill_information_first') }}</span>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>{{__('lang.unit_house')}}</label>
-                                        <input type="text" class="form-control" wire:model.live='unit_house' placeholder="{{__('lang.unit_house')}}">
-                                        @error('unit_house')
-                                            <span style="color: red" class="error">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>{{__('lang.house_no')}}</label>
-                                        <input type="text" class="form-control" wire:model.live='number_house' placeholder="{{__('lang.house_no')}}">
-                                        @error('number_house')
-                                            <span style="color: red" class="error">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                              
                             </div>
-
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -350,7 +357,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                {{-- <div class="col-md-3">
                                     <div class="form-group">
                                         <label>{{__('lang.province')}}</label>
                                        <select name="" id="" class="form-control">
@@ -360,7 +367,7 @@
                                             <span style="color: red" class="error">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                                 
                             </div>
                             <h2>ຂໍ້ມູນຕິດຕໍ່ສໍາຮອງ</h2>
@@ -370,8 +377,8 @@
                                     <div class="form-group">
                                         <label>{{__('lang.fullname')}}</label>
                                         <input type="text" class="form-control"
-                                            wire:model.live='' placeholder="{{__('lang.fullname')}}">
-                                        @error('')
+                                            wire:model.live='contact_name' placeholder="{{__('lang.fullname')}}">
+                                        @error('contact_name')
                                             <span style="color: red" class="error">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -379,16 +386,16 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>ສາຍພົວພັນ</label>
-                                        <select name="" id="" class="form-control">
+                                        <select wire:model.live='contact_relationship' class="form-control">
                                             <option value="">{{__('lang.select')}}</option>
-                                            <option value="">ພໍ່</option>
-                                            <option value="">ແມ່</option>
-                                            <option value="">ອ້າຍ</option>
-                                            <option value="">ເອື້ອຍ</option>
-                                            <option value="">ນ້ອງ</option>
-                                            <option value="">ອື່ນໆ</option>
+                                            <option value="ພໍ່">ພໍ່</option>
+                                            <option value="ແມ່">ແມ່</option>
+                                            <option value="ອ້າຍ">ອ້າຍ</option>
+                                            <option value="ເອື້ອຍ">ເອື້ອຍ</option>
+                                            <option value="ນ້ອງ">ນ້ອງ</option>
+                                            <option value="ອື່ນໆ">ອື່ນໆ</option>
                                         </select>
-                                        @error('out_doc_person_name')
+                                        @error('contact_relationship')
                                             <span style="color: red" class="error">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -396,8 +403,8 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>{{__('lang.phone')}}</label>
-                                        <input type="text" class="form-control" wire:model.live='doc_person_date'>
-                                        @error('doc_person_date')
+                                        <input type="text" class="form-control" wire:model.live='contact_phone'>
+                                        @error('contact_phone')
                                             <span style="color: red" class="error">{{ $message }}</span>
                                         @enderror
                                     </div>

@@ -66,8 +66,8 @@
                                             <td class="text-center">No.</td>
                                             <td class="text-center">{{__('lang.code')}}</td>
                                             <td>{{__('lang.fullname')}}</td>
+                                            <td>ທ່ານໜໍທີ່ດຸແລ</td>
                                             <td class="text-center">{{__('lang.date')}}</td>
-                                            <td class="text-center">ສະຖານະບິນ</td>
                                             <td class="text-center">{{__('lang.creator')}}</td>
                                             <td class="text-center">{{__('lang.action')}}</td>
                                         </tr>
@@ -82,19 +82,20 @@
                                         @foreach ($data as $item)
                                         <tr>
                                             <td class="text-center">{{$i++}}</td>
-                                            <td class="text-center"><a href="{{route('treatment_detail')}}" style="background: rgba(194, 255, 247, 0.338);padding:0rem 1rem;border-radius: 5px;">{{$item->code}}</a></td>
+                                            <td class="text-center"><a href="{{route('treatment_detail',['id'=>$item->id])}}" style="background: rgba(194, 255, 247, 0.338);padding:0rem 1rem;border-radius: 5px;">{{$item->code}}</a></td>
                                             <td>
-                                                <span class="bg-info mr-3" style="padding: .5rem .8rem;border-radius: 50%;">
+                                                <p class="bg-info mr-3" style= "border-radius: 50%;width:40px;height:40px;line-height:40px;text-align:center; display:inline-block">
                                                     {{ substr($item->get_patient->f_name,0,1) }}{{ substr($item->get_patient->l_name,0,1) }}
-                                                </span>
+                                                </p>
                                                 {{ $item->get_patient->f_name }} {{ $item->get_patient->l_name }}
+                                            </td>
+
+                                            <td>
+                                                {{$item->get_creator->f_name}} {{$item->get_creator->l_name}}
                                             </td>
                                             <td class="text-center">
                                                 
                                                 {{ date('d/m/Y', strtotime($item->date)) }}
-                                            </td>
-                                            <td class="text-center">
-                                                <span class="text-success"  style="background: rgba(192, 247, 177, 0.338);padding:0rem 1rem;border-radius: 5px;">ຊໍາລະແລ້ວ</span>
                                             </td>
                                             <td class="text-center">
                                                

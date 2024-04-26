@@ -1,4 +1,4 @@
-<div wire:poll>
+<div >
 
     <style>
         .switch {
@@ -155,8 +155,8 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="">ກໍາມະຈອນ<span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" wire:model='hearbeat'>
-                                                @error('hearbeat')
+                                                <input type="text" class="form-control" wire:model='heartbeat'>
+                                                @error('heartbeat')
                                                     <span style="color: red" class="error">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -212,17 +212,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-2" style="display: flex;gap:1rem">
-
-                                            <label class="switch">
-                                                <input type="checkbox" wire:model='old_new'>
-                                                <span class="slider round"></span>
-
-                                            </label>
-                                            <h4>ຄົນໄຂ້ເກົ່າ</h4>
-                                        </div>
-                                    </div>
+                                   
                                 </form>
                             </div>
                             <div class="card-footer">

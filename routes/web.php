@@ -66,7 +66,12 @@ Route::group(['middleware' => 'adminLogin'], function () {
     // treatment
     Route::get('/treatment', App\Livewire\Backend\Treatment\TreatmentComponent::class)->name('backend.treatment');
     Route::get('/create', App\Livewire\Backend\Treatment\CreateTreatmentComponent::class)->name('create_treatment');
-    Route::get('/detials', App\Livewire\Backend\Treatment\DetialsComponent::class)->name('treatment_detail');
+    Route::get('/detials/{id}', App\Livewire\Backend\Treatment\DetialsComponent::class)->name('treatment_detail');
+
+
+    // appointment
+
+    Route::get('/appointment', App\Livewire\Backend\Appointments\AppointmentConponent::class)->name('backend.appointment');
 
 
     //medicine
