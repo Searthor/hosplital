@@ -126,11 +126,11 @@
                         aria-expanded="false" class="nav-link dropdown-toggle"><i
                         class="fas fa-chart-line text-primary"></i> {{ __('lang.report') }}</a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                        <li><a href="{{ route('backend.report_all_customer') }}" class="dropdown-item"><i
+                        <li><a href="{{ route('backend.report_pateint') }}" class="dropdown-item"><i
                                     class="fa fa-angle-double-right main-web-color"></i>
-                                ລູກຄ້າ ຫຼື ຄົນໄຂທັງໝົດ</a>
+                                ຄົນໄຂທັງໝົດ</a>
                         </li>
-                        <li><a href="{{ route('backend.report_customer_arrear') }}" class="dropdown-item"><i
+                        <li><a href="{{ route('backend.report_appointments') }}" class="dropdown-item"><i
                                     class="fa fa-angle-double-right main-web-color"></i>
                                 ລາຍງານການໜັດໝາຍ</a>
                         </li>

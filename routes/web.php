@@ -14,6 +14,8 @@ use App\Livewire\Backend\Report\AllCustomerContent;
 use App\Livewire\Backend\Settings\ServiceUnitContent;
 use App\Livewire\Backend\Report\CustomerArrearContent;
 use App\Livewire\Backend\ExpendIncome\ExpendIncomeContent;
+use App\Livewire\Backend\Report\ReportPateintComponent;
+use App\Livewire\Backend\Report\ReportAppointmentCompont;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,14 +51,12 @@ Route::group(['middleware' => 'adminLogin'], function () {
     Route::get('/blog_types', BlogTypeContent::class)->name('backend.blog_type');
     Route::get('/slides', SlidesContent::class)->name('backend.slide');
    
-    Route::get('/report-all-customer', AllCustomerContent::class)->name('backend.report_all_customer');
-    Route::get('/report-customer-arrear', CustomerArrearContent::class)->name('backend.report_customer_arrear');
+   
+    Route::get('/report-pateint', ReportPateintComponent::class)->name('backend.report_pateint');
+    Route::get('/report-appointments', ReportAppointmentCompont::class)->name('backend.report_appointments');
     // 
-    Route::get('/customers', App\Livewire\Backend\Customers\CustomerComponent::class)->name('backend.customers');
-    Route::get('/customers/download/{id}', [App\Livewire\Backend\Customers\CustomerComponent::class, 'download'])->name('customers_download');
     Route::get('/province', App\Livewire\Backend\Settings\ProvinceComponent::class)->name('backend.province');
     Route::get('/district', App\Livewire\Backend\Settings\DistrictComponent::class)->name('backend.district');
-    Route::get('/village', App\Livewire\Backend\Settings\VillageComponent::class)->name('backend.village');
     // patients
     Route::get('/patients', App\Livewire\Backend\Patient\PatientComponent::class)->name('backend.patients');
     Route::get('/patients-detial-lists/{id}', App\Livewire\Backend\Patient\PatientDetailListComponent::class)->name('backend_patient_list');

@@ -158,11 +158,11 @@
     <div wire:ignore.self class="modal fade" id="modal-add">
         <div class="modal-dialog modal-xl ">
             <div class="modal-content">
-                <div class="modal-header bg-dark">
+                <div class="modal-header bg-primary">
                     @if ($hiddenId)
-                        <h4 class="modal-title second-web-color"> {{ __('lang.edit') }}</h4>
+                        <h4 > {{ __('lang.edit') }}</h4>
                     @else
-                        <h4 class="modal-title second-web-color"> {{ __('lang.add') }}</h4>
+                        <h4 > {{ __('lang.add') }}</h4>
                     @endif
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>

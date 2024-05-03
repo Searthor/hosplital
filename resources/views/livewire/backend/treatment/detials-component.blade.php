@@ -91,6 +91,12 @@
             color: #fff;
             border-color: rgb(7, 165, 13);
         }
+        .appointment_time p.no_active {
+            background: rgb(255, 0, 0);
+            color: #fff;
+            border-color: rgb(255, 255, 255);
+            cursor: no-drop;
+        }
 
         .medicine-box {
             display: flex;
@@ -371,7 +377,20 @@
                                             @if ($appointment_date)
                                                 <div class="col-md-6">
                                                     <div class="appointment_time">
-                                                        <p href="" wire:click='setappointment_time(10)'
+                                                        @foreach ($time_list as $item)
+                                                            @if ($item['status'] == 'No' && $old_time != $item['time'])
+                                                                <p
+                                                                    class=" @if ($appointment_time != $item['time']) no_active @endif ">
+                                                                    {{ $item['time'] }}:00
+                                                                </p>
+                                                            @else
+                                                                <p wire:click='setappointment_time({{ $item['time'] }})'
+                                                                    class="@if ($appointment_time == $item['time']) active @endif">
+                                                                    {{ $item['time'] }}:00
+                                                                </p>
+                                                            @endif
+                                                        @endforeach
+                                                        {{-- <p href="" wire:click='setappointment_time(10)'
                                                             class="@if ($appointment_time == '10') active @endif">
                                                             10:00</p>
                                                         <p href="" wire:click='setappointment_time(11)'
@@ -391,7 +410,7 @@
                                                             15:00</p>
                                                         <p href="" wire:click='setappointment_time(16)'
                                                             class="@if ($appointment_time == '16') active @endif">
-                                                            16:00</p>
+                                                            16:00</p> --}}
                                                     </div>
                                                 </div>
                                             @endif
@@ -506,8 +525,6 @@
                 @this.set('med_id', data);
             });
         });
-
-
     </script>
     <script>
         function ExportExcel(type, fn, dl) {

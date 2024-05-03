@@ -53,7 +53,7 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3 style="font-size:2.5vw;">10 ຄົນ</h3>
+                            <h3 style="font-size:2.5vw;">{{count($all_appointment)}} ຄົນ</h3>
                             <p>ຄົນໄຂທີ່ໜັດໜາມມື້ນີ້</p>
                         </div>
                         <div class="icon">

@@ -174,8 +174,6 @@ class PatientComponent extends Component
             $this->dispatch('something_went_wrong');
         }
     }
-
-
     public function edit($id)
     {
         $this->resetField();

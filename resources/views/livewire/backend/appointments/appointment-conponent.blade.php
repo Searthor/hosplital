@@ -23,6 +23,13 @@
             color: #fff;
             border-color: rgb(7, 165, 13);
         }
+
+        .appointment_time p.no_active {
+            background: rgb(255, 0, 0);
+            color: #fff;
+            border-color: rgb(255, 255, 255);
+            cursor: no-drop;
+        }
     </style>
     <section class="content-header">
         <div class="container-fluid">
@@ -93,57 +100,59 @@
                                             <td class="text-center">{{ __('lang.action') }}</td>
                                         </tr>
                                     </thead>
-                                    
-                                    <tbody >
+
+                                    <tbody>
                                         @php
-                                            $i =1;
+                                            $i = 1;
                                         @endphp
                                         @foreach ($appointments as $item)
-                                        <tr>
-                                            <td class="text-center">{{$i++}}</td>
-                                            <td>
-                                                <p class="bg-info mr-3" style= "border-radius: 50%;width:40px;height:40px;line-height:40px;text-align:center; display:inline-block">
-                                                    {{ substr($item->get_patient->f_name,0,1) }}{{ substr($item->get_patient->l_name,0,1) }}
-                                                </p>
-                                                {{ $item->get_patient->f_name }} {{ $item->get_patient->l_name }}
-                                            </td>
+                                            <tr>
+                                                <td class="text-center">{{ $i++ }}</td>
+                                                <td>
+                                                    <p class="bg-info mr-3"
+                                                        style= "border-radius: 50%;width:40px;height:40px;line-height:40px;text-align:center; display:inline-block">
+                                                        {{ substr($item->get_patient->f_name, 0, 1) }}{{ substr($item->get_patient->l_name, 0, 1) }}
+                                                    </p>
+                                                    {{ $item->get_patient->f_name }} {{ $item->get_patient->l_name }}
+                                                </td>
 
-                                            <td>
-                                                {{$item->get_doctor->f_name}} {{$item->get_doctor->l_name}}
-                                            </td>
-                                            <td class="text-center">
-                                                
-                                                {{ date('d/m/Y', strtotime($item->date)) }}
-                                            </td>
-                                            <td class="text-center">
-                                               
-                                               <p style="padding: .3rem 1rem;width:100px;margin:0 auto;border-radius:5px" class="bg-info">{{$item->time}}:00</p> 
-                                            </td>
-                                            <td class="text-center">
-                                                {{$item->get_creator->f_name}} {{!empty($item->get_creator->l_name) ? $item->get_creator->l_name : ''}}
-                                            </td>
-                                            <td class="text-center">
-                                                <a wire:click="showdetail({{ $item->id }})"
+                                                <td>
+                                                    {{ $item->get_doctor->f_name }} {{ $item->get_doctor->l_name }}
+                                                </td>
+                                                <td class="text-center">
+
+                                                    {{ date('d/m/Y', strtotime($item->date)) }}
+                                                </td>
+                                                <td class="text-center">
+
+                                                    <p style="padding: .3rem 1rem;width:100px;margin:0 auto;border-radius:5px"
+                                                        class="bg-info">{{ $item->time }}:00</p>
+                                                </td>
+                                                <td class="text-center">
+                                                    {{ $item->get_creator->f_name }}
+                                                    {{ !empty($item->get_creator->l_name) ? $item->get_creator->l_name : '' }}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{-- <a wire:click="showdetail({{ $item->id }})"
                                                     type="button" class="btn btn-info btn-sm">
                                                     <i  class="fa fa-eye"></i>
-                                                </a>
-                                                <a wire:click="showUpdate({{ $item->id }})"
-                                                    type="button" class="btn btn-warning btn-sm">
-                                                    <i  class="fa fa-pencil"></i>
-                                                </a>
-                                                <a wire:click="showDestroy({{ $item->id }})"
-                                                    type="button" class="btn btn-danger btn-sm">
-                                                    <i  class="fa fa-trash"></i>
-                                                </a>
-                                                
-                                            </td>
-                                           </tr>
-                                            
+                                                </a> --}}
+                                                    <a wire:click="showUpdate({{ $item->id }})" type="button"
+                                                        class="btn btn-warning btn-sm">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                    <a wire:click="showDestroy({{ $item->id }})" type="button"
+                                                        class="btn btn-danger btn-sm">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+
+                                                </td>
+                                            </tr>
                                         @endforeach
 
-                                      
 
-                                       
+
+
                                     </tbody>
 
                                 </table>
@@ -253,27 +262,19 @@
                                 @if ($appointment_date)
                                     <div class="col-md-12">
                                         <div class="appointment_time">
-                                            <p href="" wire:click='setappointment_time(10)'
-                                                class="@if ($appointment_time == '10') active @endif">
-                                                10:00</p>
-                                            <p href="" wire:click='setappointment_time(11)'
-                                                class="@if ($appointment_time == '11') active @endif">
-                                                11:00</p>
-                                            <p href="" wire:click='setappointment_time(12)'
-                                                class="@if ($appointment_time == '12') active @endif">
-                                                12:00</p>
-                                            <p href="" wire:click='setappointment_time(13)'
-                                                class="@if ($appointment_time == '13') active @endif">
-                                                13:00</p>
-                                            <p href="" wire:click='setappointment_time(14)'
-                                                class="@if ($appointment_time == '14') active @endif">
-                                                14:00</p>
-                                            <p href="" wire:click='setappointment_time(15)'
-                                                class="@if ($appointment_time == '15') active @endif">
-                                                15:00</p>
-                                            <p href="" wire:click='setappointment_time(16)'
-                                                class="@if ($appointment_time == '16') active @endif">
-                                                16:00</p>
+                                            @foreach ($time_list as $item)
+                                                @if ($item['status'] == 'No' && $old_time != $item['time'])
+                                                    <p class=" @if ($appointment_time != $item['time']) no_active @endif ">
+                                                        {{ $item['time'] }}:00
+                                                    </p>
+                                                @else
+                                                    <p wire:click='setappointment_time({{ $item['time'] }})'
+                                                        class="@if ($appointment_time == $item['time']) active @endif">
+                                                        {{ $item['time'] }}:00
+                                                    </p>
+                                                @endif
+                                            @endforeach
+
                                         </div>
                                     </div>
                                 @endif
@@ -292,14 +293,13 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-secondary"
                         data-dismiss="modal">{{ __('lang.cancel') }}</button>
                     @if ($hiddenId)
                         <button wire:click="Update({{ $hiddenId }})" type="button"
-                            class="btn btn-primary">{{ __('lang.edit') }}</button>
+                            class="btn btn-warning">{{ __('lang.edit') }}</button>
                     @else
                         <button wire:click="Store" type="button"
                             class="btn btn-primary">{{ __('lang.save') }}</button>
@@ -309,9 +309,7 @@
             </div>
         </div>
     </div>
-
-
-
+</div>
 </div>
 @push('scripts')
     <script>
