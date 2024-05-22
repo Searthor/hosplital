@@ -200,7 +200,7 @@
                                             <div class="form-group">
                                                 <label for="">ຄວາມດັນເລືອດ<span
                                                         class="text-danger">*</span></label>
-                                                <input type="number" class="form-control" wire:model.live='pressure'>
+                                                <input type="text" class="form-control" wire:model.live='pressure'>
                                                 @if ($pressure == null)
                                                     @error('pressure')
                                                         <span style="color: red" class="error">{{ $message }}</span>
@@ -221,7 +221,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label for="">ວັກແສງ<span class="text-danger">*</span></label>
+                                                <label for="">ວັກແສງ</label>
                                                 <input type="text" class="form-control" wire:model='vak­_saeng'>
                                                 @error('vak­_saeng')
                                                     <span style="color: red" class="error">{{ $message }}</span>

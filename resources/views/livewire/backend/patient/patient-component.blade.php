@@ -400,6 +400,7 @@
                                         @enderror
                                     </div>
                                 </div>
+                              
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>{{__('lang.phone')}}</label>
@@ -408,19 +409,81 @@
                                             <span style="color: red" class="error">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                </div>      
+                                </div>  
+                                @if ($contact_relationship == 'ອື່ນໆ')
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>{{__('lang.details')}} (ສາຍພົວພັນ)</label>
+                                        <input type="text" class="form-control" wire:model.live='detail' placeholder="{{__('lang.details')}}">
+                                        @error('detail')
+                                            <span style="color: red" class="error">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                @endif    
                             </div>
-
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>{{__('lang.details')}}</label>
-                                    <input type="text" class="form-control" wire:model.live='detail' placeholder="{{__('lang.details')}}">
-                                    @error('detail')
-                                        <span style="color: red" class="error">{{ $message }}</span>
-                                    @enderror
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">
+                                            {{ __('lang.province') }}</label>
+                                        <select class="form-control" wire:model.live="pro_contact_id">
+                                            <option value="">{{ __('lang.province') }}</option>
+                                            @foreach ($provinces as $item)
+                                                <option value="{{ $item->id }}">
+                                                    @if (Config::get('app.locale') == 'lo')
+                                                        {{ $item->name_la }}
+                                                    @elseif(Config::get('app.locale') == 'en')
+                                                        {{ $item->name_en }}
+                                                    @endif
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('pro_contact_id')
+                                            <span style="color: red"
+                                                class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">
+                                            {{ __('lang.district') }}</label>
+                                        <select class="form-control" wire:model.live="dis_contact_id">
+                                            <option value="">{{ __('lang.district') }}</option>
+                                            @foreach ($districts_contact as $item)
+                                                <option value="{{ $item->id }}"
+                                                    @if ($this->dis_contact_id == $item->id) selected @endif>
+                                                    @if (Config::get('app.locale') == 'lo')
+                                                        {{ $item->name_la }}
+                                                    @elseif(Config::get('app.locale') == 'en')
+                                                        {{ $item->name_en }}
+                                                    @endif
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('dis_contact_id')
+                                            <span style="color: red"
+                                                class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">
+                                            {{ __('lang.village') }}</label>
+                                        <input type="text" wire:model='village_contact' class="form-control" placeholder="{{ __('lang.village') }}.....">
+                                        @error('village_contact')
+                                            <span style="color: red"
+                                                class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                         
+                            
+                          
+                          
+                            
 
 
 

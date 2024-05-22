@@ -143,6 +143,29 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="inputName2"
+                                            class="col-sm-4 col-form-label">ວັນເດືອນປີເກິດ </label>
+                                        <input type="text" wire:model='village' class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="inputName2"
+                                            class="col-sm-4 col-form-label">ເພດ </label>
+                                        <input type="text" wire:model='village' class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="inputName2"
+                                            class="col-sm-4 col-form-label">ສະຖານະ </label>
+                                        <input type="text" wire:model='village' class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="inputName2"
                                             class="col-sm-4 col-form-label">{{ __('lang.province') }} </label>
                                         <select class="form-control" wire:model.live="pro_id" id="inputName2">
                                             <option value="">{{ __('lang.province') }}</option>
@@ -161,10 +184,10 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="inputName2"
-                                            class="col-sm-4 col-form-label">{{ __('lang.village') }} </label>
-                                        <select class="form-control" wire:model.live="vill_id" id="inputName2">
-                                            <option value="">{{ __('lang.village') }}</option>
-                                            @foreach ($villages as $item)
+                                            class="col-sm-4 col-form-label">{{ __('lang.district') }} </label>
+                                        <select class="form-control" wire:model.live="dis_id" id="inputName2">
+                                            <option value="">{{ __('lang.district') }}</option>
+                                            @foreach ($districts as $item)
                                                 <option value="{{ $item->id }}">
                                                     @if (Config::get('app.locale') == 'lo')
                                                         {{ $item->name_la }}
@@ -180,18 +203,7 @@
                                     <div class="form-group">
                                         <label for="inputName2"
                                             class="col-sm-4 col-form-label">{{ __('lang.village') }} </label>
-                                        <select class="form-control" wire:model.live="vill_id" id="inputName2">
-                                            <option value="">{{ __('lang.village') }}</option>
-                                            @foreach ($villages as $item)
-                                                <option value="{{ $item->id }}">
-                                                    @if (Config::get('app.locale') == 'lo')
-                                                        {{ $item->name_la }}
-                                                    @elseif(Config::get('app.locale') == 'en')
-                                                        {{ $item->name_en }}
-                                                    @endif
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" wire:model='village' class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">

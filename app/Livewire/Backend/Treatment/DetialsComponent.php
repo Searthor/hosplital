@@ -124,8 +124,13 @@ class DetialsComponent extends Component
         }
         try {
             DB::beginTransaction();
-
             $data = Treatments::find($id);
+            $data->height = $this->height;
+            $data->weight = $this->weight;
+            $data->pressure = $this->pressure;
+            $data->heartbeat = $this->heartbeat;
+            $data->vak­_saeng = $this->vak­_saeng;
+            $data->symptom = $this->symptom;
             $data->bongmati = $this->bongmati;
             $data->sleep_hospital = $this->check_admit;
             $data->bongmati = $this->bongmati;

@@ -10,10 +10,12 @@ use App\Models\District;
 use App\Models\Province;
 use App\Models\Treatments;
 use Carbon\Carbon;
+use Livewire\WithFileUploads;
 
 class PatientComponent extends Component
 {
     use WithPagination;
+    use WithFileUploads;
     protected $paginationTheme = 'bootstrap';
     public $hiddenId;
     public $first_name, $last_name, $birthday, $phone, $gender,
@@ -23,6 +25,7 @@ class PatientComponent extends Component
     public $search;
     public $districts=[],$pro_id,$dis_id;
     public $contact_name,$contact_relationship,$contact_phone,$detail;
+    public $dis_contact_id,$pro_contact_id,$village_contact,$districts_contact=[];
 
     protected $function_controller;
     public function __construct()
@@ -43,11 +46,15 @@ class PatientComponent extends Component
         if ($this->pro_id) {
             $this->districts =  District::where('province_id', $this->pro_id)->get();
         }
+        if($this->pro_contact_id){
+            $this->districts_contact =  District::where('province_id', $this->pro_contact_id)->get();
+        }
         $provinces =  Province::get();
 
         $data = Patient::where(function ($q) {
             $q->where('f_name', 'like', '%' . $this->search . '%')
                 ->orwhere('l_name', 'like', '%' . $this->search . '%')
+                ->orwhere('phone', 'like', '%' . $this->search . '%')
                 ->orwhere('code', 'like', '%' . $this->search . '%');  
             })
         ->where('del',1);
