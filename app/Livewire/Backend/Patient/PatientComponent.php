@@ -161,8 +161,9 @@ class PatientComponent extends Component
             $data->contact_relationship = $this->contact_relationship;
             $data->contact_phone = $this->contact_phone;
             $data->des = $this->detail;
-           
-
+            $data->pro_contact_id = $this->pro_contact_id;
+            $data->dis_contact_id = $this->dis_contact_id;
+            $data->village_contact = $this->village_contact;
             if($this->number_doc_person){
                 $data->number_doc_person = $this->number_doc_person;
             }
@@ -171,6 +172,11 @@ class PatientComponent extends Component
             }
             if($this->doc_person_date){
                 $data->doc_person_date = $this->doc_person_date;
+            }
+            if (!empty($this->file)) {
+                $imageName = Carbon::now()->timestamp . '.' . $this->file->extension();
+                $this->file->storeAs('upload/patient', $imageName);
+                $data->file = 'upload/patient/' . $imageName;
             }
      
             $data->save();
@@ -207,6 +213,9 @@ class PatientComponent extends Component
         $this->contact_name = $singleData->contact_name;
         $this->contact_relationship = $singleData->contact_relationship;
         $this->contact_phone = $singleData->contact_phone;
+        $this->pro_contact_id = $singleData->pro_contact_id;
+        $this->dis_contact_id = $singleData->dis_contact_id;
+        $this->village_contact = $singleData->village_contact;
         $this->detail = $singleData->des;
 
 
@@ -218,6 +227,8 @@ class PatientComponent extends Component
     }
     public function Update($id)
     {
+
+       
    
         $this->validate([
             'first_name' => 'required',
@@ -269,6 +280,9 @@ class PatientComponent extends Component
             $data->contact_name = $this->contact_name;
             $data->contact_relationship = $this->contact_relationship;
             $data->contact_phone = $this->contact_phone;
+            $data->pro_contact_id = $this->pro_contact_id;
+            $data->dis_contact_id = $this->dis_contact_id;
+            $data->village_contact = $this->village_contact;
             $data->des = $this->detail;
 
 
@@ -280,6 +294,11 @@ class PatientComponent extends Component
             }
             if($this->doc_person_date){
                 $data->doc_person_date = $this->doc_person_date;
+            }
+            if (!empty($this->file)) {
+                $imageName = Carbon::now()->timestamp . '.' . $this->file->extension();
+                $this->file->storeAs('upload/patient', $imageName);
+                $data->file = 'upload/patient/' . $imageName;
             }
      
             $data->Update();

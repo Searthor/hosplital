@@ -166,16 +166,19 @@ class RoleComponent extends Component
     public function destroy()
     {
         $ids = $this->hiddenId;
-        if (User::where('role_id', $ids)->first()) {
+        $check= User::where('role_id', $ids)->first();
+        
+        if ($check != null) {
             $this->dispatch('hide-modal-delete');
             $this->dispatch('can_not_delete');
             return;
         }
-        if (FunctionAvailable::where('role_id', $ids)->first()) {
-            $this->dispatch('hide-modal-delete');
-            $this->dispatch('can_not_delete');
-            return;
-        }
+
+        // if (FunctionAvailable::where('role_id', $ids)->first()) {
+        //     $this->dispatch('hide-modal-delete');
+        //     $this->dispatch('can_not_delete');
+        //     return;
+        // }
         try {
             $data = Role::find($ids);
             $data->delete();

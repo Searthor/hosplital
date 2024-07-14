@@ -97,6 +97,33 @@
     });
   });
 </script>
+
+<script>
+  document.addEventListener('passwords_not_match', function(e) {
+    Swal.fire({
+      title: "ລະຫັດຜ່ານບໍ່ກົງກັນ",
+      icon: "error",
+      iconColor:  'danger',
+      timer: 3000,
+      toast: true,
+      position: 'top-right',
+      showConfirmButton: false,
+    });
+  });
+</script>
+<script>
+  document.addEventListener('passwords_not_co', function(e) {
+    Swal.fire({
+      title: "ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ ກະລຸນາກວດຄືນ!",
+      icon: "error",
+      iconColor:  'danger',
+      timer: 3000,
+      toast: true,
+      position: 'top-right',
+      showConfirmButton: false,
+    });
+  });
+</script>
 {{-- =================================== already-data ======================================= --}}
 <script>
   document.addEventListener('already_data', function(e) {

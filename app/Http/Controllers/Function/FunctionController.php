@@ -8,6 +8,7 @@ use App\Models\FunctionAvailable;
 use App\Models\FunctionModel;
 use App\Models\Patient;
 use App\Models\Treatments;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -38,33 +39,39 @@ class FunctionController extends Controller
         return false;
     }
     public function generate_code($type)
-{
-    // Fetch the last patient code
-    // Fetch the last patient code
-    if($type =='Patient'){
-        $last_patient = Patient::orderBy('id', 'desc')->first();
+    {
+        // Fetch the last patient code
+        // Fetch the last patient code
+        if ($type == 'Patient') {
+            $last_patient = Patient::orderBy('id', 'desc')->first();
+        }
+        if ($type == 'Treatments') {
+            $last_patient = Treatments::orderBy('id', 'desc')->first();
+        }
+
+        if ($type == 'user') {
+            $last_patient = User::orderBy('id', 'desc')->first();
+        }
+
+
+        // Check if there's an existing code
+        $last_code = $last_patient ? $last_patient->code : '000000';
+
+        // Extract numeric part of the code
+        $numeric_part = intval(substr($last_code, 3));
+
+        // Increment numeric part by 1
+        $new_numeric_part = str_pad($numeric_part + 1, 6, '0', STR_PAD_LEFT); // Changed to 6 digits
+
+        // Construct the new code
+        $new_code = $new_numeric_part;
+
+        return $new_code;
+
+        return $new_code;
     }
-    if($type =='Treatments'){
-        $last_patient = Treatments::orderBy('id', 'desc')->first();
-    }
-    
-    
-    // Check if there's an existing code
-    $last_code = $last_patient ? $last_patient->code : '000000';
 
-    // Extract numeric part of the code
-    $numeric_part = intval(substr($last_code, 3));
 
-    // Increment numeric part by 1
-    $new_numeric_part = str_pad($numeric_part + 1, 6, '0', STR_PAD_LEFT); // Changed to 6 digits
-
-    // Construct the new code
-    $new_code = $new_numeric_part;
-
-    return $new_code;
-
-    return $new_code;
-}
 
     // public function generate_code($type)
     // {
@@ -73,7 +80,7 @@ class FunctionController extends Controller
     //         $code = !empty($check_code->code) ?  $check_code->code : 0;
     //     }
 
-       
+
     //     if (intval($code) < 10000) {
     //         if (intval(substr($code, 1, 4)) <= 99 && intval(substr($code, 1, 4)) >= 9) {
     //             return '000' . (intval(substr($code, 1, 4))  + 1);
@@ -90,7 +97,7 @@ class FunctionController extends Controller
     //         return intval($code) + 1;
     //     }
     //     return $code;
-    
+
     // }
     public function cal_age($date)
     {

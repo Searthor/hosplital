@@ -13,7 +13,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('backend.dashboard') }}">{{ __('lang.home') }}</a>
                         </li>
-                       ຄົນໄຂ
+                        ຄົນໄຂ
                     </ol>
                 </div>
             </div>
@@ -28,10 +28,7 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="row">
-                                        @if (
-                                            $function_controller->check_permission('access_add_patient') == true ||
-                                                auth()->user()->role_id == 1
-                                               )
+                                        @if ($function_controller->check_permission('access_add_patient') == true || auth()->user()->role_id == 1)
                                             <div class="col-md-4">
                                                 <button class="btn btn-primary" wire:click="create">
                                                     {{ __('lang.add') }}
@@ -46,8 +43,8 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <input type="text" class="form-control"
-                                            placeholder="{{ __('lang.search') }}" wire:model="search">
+                                        <input type="text" class="form-control" placeholder="{{ __('lang.search') }}"
+                                            wire:model="search">
                                     </div>
                                 </div>
                                 <div class="col-md-1">
@@ -89,7 +86,9 @@
                                         @foreach ($data as $item)
                                             <tr>
                                                 <td>{{ $i++ }}</td>
-                                                <td><a href="{{route('backend_patient_list',['id'=>$item->id])}}" style="background: rgba(194, 255, 247, 0.338);padding:0rem 1rem;border-radius: 5px;">{{ $item->code }}</a></td>
+                                                <td><a href="{{ route('backend_patient_list', ['id' => $item->id]) }}"
+                                                        style="background: rgba(194, 255, 247, 0.338);padding:0rem 1rem;border-radius: 5px;">{{ $item->code }}</a>
+                                                </td>
                                                 <td>{{ $item->f_name }} {{ $item->l_name }}</td>
                                                 <td>
                                                     @if ($item->gender == 'man')
@@ -103,32 +102,30 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ date('d/m/Y', strtotime($item->birthday)) }}</td>
-                                                
+
                                                 <td>{{ $item->phone }}</td>
-                                                <td>{{$item->job}}
+                                                <td>{{ $item->job }}
                                                 </td>
-                                                <td>{{$item->nationality}}</td>
+                                                <td>{{ $item->nationality }}</td>
                                                 <td>
-                                                    {{$item->village}}
-                                                </td>
-                                                <td>
-                                                    {{$item->district->name_la}}
+                                                    {{ $item->village }}
                                                 </td>
                                                 <td>
-                                                    {{$item->province->name_la}}
+                                                    {{ $item->district->name_la }}
                                                 </td>
                                                 <td>
-                                                    @if (
-                                                        $function_controller->check_permission('access_edit_patient') == true ||
-                                                            auth()->user()->role_id == 1)
+                                                    {{ $item->province->name_la }}
+                                                </td>
+                                                <td>
+                                                    @if ($item->file)
+                                                        <a target="__bank" class="btn btn-info btn-sm" href="{{ $item->file }}"><i class="fas fa-file"></i></a>
+                                                    @endif
+                                                    @if ($function_controller->check_permission('access_edit_patient') == true || auth()->user()->role_id == 1)
                                                         <button wire:click="edit({{ $item->id }})" type="button"
                                                             class="btn btn-warning btn-sm"><i
                                                                 class="fas fa-pencil-alt"></i></button>
                                                     @endif
-                                                    @if (
-                                                        $function_controller->check_permission('access_delete_patient') == true ||
-                                                            auth()->user()->role_id == 1 
-                                                            )
+                                                    @if ($function_controller->check_permission('access_delete_patient') == true || auth()->user()->role_id == 1)
                                                         <button wire:click="showDestroy({{ $item->id }})"
                                                             type="button" class="btn btn-danger btn-sm"><i
                                                                 class="fas fa-trash"></i></button>
@@ -160,9 +157,9 @@
             <div class="modal-content">
                 <div class="modal-header bg-primary">
                     @if ($hiddenId)
-                        <h4 > {{ __('lang.edit') }}</h4>
+                        <h4> {{ __('lang.edit') }}</h4>
                     @else
-                        <h4 > {{ __('lang.add') }}</h4>
+                        <h4> {{ __('lang.add') }}</h4>
                     @endif
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -175,7 +172,8 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>{{ __('lang.name') }}<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" wire:model.live='first_name' placeholder="{{__('lang.name')}}">
+                                        <input type="text" class="form-control" wire:model.live='first_name'
+                                            placeholder="{{ __('lang.name') }}">
                                         @error('first_name')
                                             <span style="color: red" class="error">{{ $message }}</span>
                                         @enderror
@@ -184,7 +182,8 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>{{ __('lang.lastname') }}<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" wire:model.live='last_name' placeholder="{{__('lang.lastname')}}">
+                                        <input type="text" class="form-control" wire:model.live='last_name'
+                                            placeholder="{{ __('lang.lastname') }}">
                                         @error('last_name')
                                             <span style="color: red" class="error">{{ $message }}</span>
                                         @enderror
@@ -220,7 +219,8 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>ສັນຊາດ<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" wire:model.live='nationality' placeholder="ສັນຊາດ">
+                                        <input type="text" class="form-control" wire:model.live='nationality'
+                                            placeholder="ສັນຊາດ">
                                         @error('nationality')
                                             <span style="color: red" class="error">{{ $message }}</span>
                                         @enderror
@@ -229,16 +229,18 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>ຊົນເຜົ່າ</label>
-                                        <input type="text" class="form-control" wire:model.live='ethnicity' placeholder="ຊົນເຜົ່າ">
+                                        <input type="text" class="form-control" wire:model.live='ethnicity'
+                                            placeholder="ຊົນເຜົ່າ">
                                         @error('ethnicity')
-                                        <span style="color: red" class="error">{{ $message }}</span>
+                                            <span style="color: red" class="error">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>ອາຊິບ</label>
-                                        <input type="text" class="form-control" wire:model.live='job' placeholder="ສັນຊາດ">
+                                        <input type="text" class="form-control" wire:model.live='job'
+                                            placeholder="ສັນຊາດ">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -259,15 +261,16 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>{{ __('lang.phone') }}<span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control" wire:model.live='phone' placeholder="{{__('lang.phone')}}">
+                                        <input type="number" class="form-control" wire:model.live='phone'
+                                            placeholder="{{ __('lang.phone') }}">
                                         @error('phone')
                                             <span style="color: red" class="error">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
 
-                                
-                                
+
+
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
@@ -319,7 +322,8 @@
                                     <div class="form-group">
                                         <label for="">
                                             {{ __('lang.village') }}</label>
-                                        <input type="text" wire:model='village' class="form-control" placeholder="{{ __('lang.village') }}.....">
+                                        <input type="text" wire:model='village' class="form-control"
+                                            placeholder="{{ __('lang.village') }}.....">
                                         @error('village')
                                             <span style="color: red"
                                                 class="error">{{ __('lang.please_fill_information_first') }}</span>
@@ -330,9 +334,10 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>{{__('lang.identity_card_census_number')}}</label>
+                                        <label>{{ __('lang.identity_card_census_number') }}</label>
                                         <input type="text" class="form-control"
-                                            wire:model.live='number_doc_person' placeholder="{{__('lang.identity_card_census_number')}}">
+                                            wire:model.live='number_doc_person'
+                                            placeholder="{{ __('lang.identity_card_census_number') }}">
                                         @error('number_doc_person')
                                             <span style="color: red" class="error">{{ $message }}</span>
                                         @enderror
@@ -340,9 +345,9 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>{{__('lang.name_out')}}</label>
-                                        <input type="text" class="form-control"
-                                            wire:model.live='doc_person_name' placeholder="{{__('lang.name_out')}}">
+                                        <label>{{ __('lang.name_out') }}</label>
+                                        <input type="text" class="form-control" wire:model.live='doc_person_name'
+                                            placeholder="{{ __('lang.name_out') }}">
                                         @error('out_doc_person_name')
                                             <span style="color: red" class="error">{{ $message }}</span>
                                         @enderror
@@ -350,7 +355,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>{{__('lang.date_of_issue')}}</label>
+                                        <label>{{ __('lang.date_of_issue') }}</label>
                                         <input type="date" class="form-control" wire:model.live='doc_person_date'>
                                         @error('doc_person_date')
                                             <span style="color: red" class="error">{{ $message }}</span>
@@ -368,16 +373,16 @@
                                         @enderror
                                     </div>
                                 </div> --}}
-                                
+
                             </div>
                             <h2>ຂໍ້ມູນຕິດຕໍ່ສໍາຮອງ</h2>
 
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>{{__('lang.fullname')}}</label>
-                                        <input type="text" class="form-control"
-                                            wire:model.live='contact_name' placeholder="{{__('lang.fullname')}}">
+                                        <label>{{ __('lang.fullname') }}</label>
+                                        <input type="text" class="form-control" wire:model.live='contact_name'
+                                            placeholder="{{ __('lang.fullname') }}">
                                         @error('contact_name')
                                             <span style="color: red" class="error">{{ $message }}</span>
                                         @enderror
@@ -387,7 +392,7 @@
                                     <div class="form-group">
                                         <label>ສາຍພົວພັນ</label>
                                         <select wire:model.live='contact_relationship' class="form-control">
-                                            <option value="">{{__('lang.select')}}</option>
+                                            <option value="">{{ __('lang.select') }}</option>
                                             <option value="ພໍ່">ພໍ່</option>
                                             <option value="ແມ່">ແມ່</option>
                                             <option value="ອ້າຍ">ອ້າຍ</option>
@@ -400,27 +405,28 @@
                                         @enderror
                                     </div>
                                 </div>
-                              
+
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>{{__('lang.phone')}}</label>
+                                        <label>{{ __('lang.phone') }}</label>
                                         <input type="text" class="form-control" wire:model.live='contact_phone'>
                                         @error('contact_phone')
                                             <span style="color: red" class="error">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                </div>  
-                                @if ($contact_relationship == 'ອື່ນໆ')
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>{{__('lang.details')}} (ສາຍພົວພັນ)</label>
-                                        <input type="text" class="form-control" wire:model.live='detail' placeholder="{{__('lang.details')}}">
-                                        @error('detail')
-                                            <span style="color: red" class="error">{{ $message }}</span>
-                                        @enderror
-                                    </div>
                                 </div>
-                                @endif    
+                                @if ($contact_relationship == 'ອື່ນໆ')
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>{{ __('lang.details') }} (ສາຍພົວພັນ)</label>
+                                            <input type="text" class="form-control" wire:model.live='detail'
+                                                placeholder="{{ __('lang.details') }}">
+                                            @error('detail')
+                                                <span style="color: red" class="error">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
@@ -472,7 +478,8 @@
                                     <div class="form-group">
                                         <label for="">
                                             {{ __('lang.village') }}</label>
-                                        <input type="text" wire:model='village_contact' class="form-control" placeholder="{{ __('lang.village') }}.....">
+                                        <input type="text" wire:model='village_contact' class="form-control"
+                                            placeholder="{{ __('lang.village') }}.....">
                                         @error('village_contact')
                                             <span style="color: red"
                                                 class="error">{{ __('lang.please_fill_information_first') }}</span>
@@ -480,17 +487,17 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                          
-                          
-                            
+
+
+
+
 
 
 
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>{{__('lang.file_document')}}</label>
+                                        <label>{{ __('lang.file_document') }}</label>
                                         <input type="file" class="form-control" wire:model.live='file'>
                                         @error('file')
                                             <span style="color: red" class="error">{{ $message }}</span>

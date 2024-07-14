@@ -21,7 +21,8 @@
                 @if ($function_controller->check_permission('access_setting') == true || auth()->user()->role_id == 1)
                     <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" class="nav-link dropdown-toggle"> <i class="fa fa-gear text-primary"></i> ຈັດການຂໍ້ມູນ</a>
+                            aria-expanded="false" class="nav-link dropdown-toggle"> <i
+                                class="fa fa-gear text-primary"></i> ຈັດການຂໍ້ມູນ</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                             @if ($function_controller->check_permission('access_role') == true || auth()->user()->role_id == 1)
                                 <li><a href="{{ route('backend.role') }}" class="dropdown-item"><i
@@ -81,7 +82,8 @@
                 @if ($function_controller->check_permission('access_patient') == true || auth()->user()->role_id == 1)
                     <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-user text-primary"></i> ຄົນໄຂ້</a>
+                            aria-expanded="false" class="nav-link dropdown-toggle"><i
+                                class="fa fa-user text-primary"></i> ຄົນໄຂ້</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                             <li><a href="{{ route('backend.patients') }}" class="dropdown-item"><i
                                         class="fa fa-angle-double-right main-web-color"></i>
@@ -93,12 +95,15 @@
                 @if ($function_controller->check_permission('access_treatment') == true || auth()->user()->role_id == 1)
                     <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-history text-primary"></i>ປະຫັວດການປິ່ນປົວ</a>
+                            aria-expanded="false" class="nav-link dropdown-toggle"><i
+                                class="fa fa-history text-primary"></i>ປະຫັວດການປິ່ນປົວ</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                            <li><a href="{{ route('create_treatment') }}" class="dropdown-item"><i
-                                        class="fa fa-angle-double-right main-web-color"></i>
-                                    ເພີ່ມອາການເບື້ອງຕົ້ນ</a>
-                            </li>
+                            @if ($function_controller->check_permission('access_add_treatment') == true || auth()->user()->role_id == 1)
+                                <li><a href="{{ route('create_treatment') }}" class="dropdown-item"><i
+                                            class="fa fa-angle-double-right main-web-color"></i>
+                                        ເພີ່ມອາການເບື້ອງຕົ້ນ</a>
+                                </li>
+                            @endif
                             <li><a href="{{ route('backend.treatment') }}" class="dropdown-item"><i
                                         class="fa fa-angle-double-right main-web-color"></i>
                                     ລາຍການຄົນໄຂ້</a>
@@ -110,7 +115,8 @@
                 @if ($function_controller->check_permission('access_appointments') == true || auth()->user()->role_id == 1)
                     <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-calendar-check text-primary"></i> ການນັດໝາຍ</a>
+                            aria-expanded="false" class="nav-link dropdown-toggle"><i
+                                class="fa fa-calendar-check text-primary"></i> ການນັດໝາຍ</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                             <li><a href="{{ route('backend.appointment') }}" class="dropdown-item"><i
                                         class="fa fa-angle-double-right main-web-color"></i>
@@ -121,29 +127,29 @@
                 @endif
 
                 @if ($function_controller->check_permission('access_report') == true || auth()->user()->role_id == 1)
-                <li class="nav-item dropdown">
-                    <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false" class="nav-link dropdown-toggle"><i
-                        class="fas fa-chart-line text-primary"></i> {{ __('lang.report') }}</a>
-                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                        <li><a href="{{ route('backend.report_pateint') }}" class="dropdown-item"><i
-                                    class="fa fa-angle-double-right main-web-color"></i>
-                                ຄົນໄຂທັງໝົດ</a>
-                        </li>
-                        <li><a href="{{ route('backend.report_appointments') }}" class="dropdown-item"><i
-                                    class="fa fa-angle-double-right main-web-color"></i>
-                                ລາຍງານການໜັດໝາຍ</a>
-                        </li>
-                        <li><a href="" class="dropdown-item"><i
-                                    class="fa fa-angle-double-right main-web-color"></i>
-                                ລາຍງານການຜິດໜັດໝາຍ</a>
-                        </li>
-                        <li><a href="" class="dropdown-item"><i
-                                    class="fa fa-angle-double-right main-web-color"></i>
-                                ລາຍການຜູ້ລະບົບ</a>
-                        </li>
-                        <li class="dropdown-divider"></li>
-                </li>
+                    <li class="nav-item dropdown">
+                        <a id="dropdownSubMenu1" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" class="nav-link dropdown-toggle"><i
+                                class="fas fa-chart-line text-primary"></i> {{ __('lang.report') }}</a>
+                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                            <li><a href="{{ route('backend.report_pateint') }}" class="dropdown-item"><i
+                                        class="fa fa-angle-double-right main-web-color"></i>
+                                    ຄົນໄຂທັງໝົດ</a>
+                            </li>
+                            <li><a href="{{ route('backend.report_appointments') }}" class="dropdown-item"><i
+                                        class="fa fa-angle-double-right main-web-color"></i>
+                                    ລາຍງານການໜັດໝາຍ</a>
+                            </li>
+                            <li><a href="{{ route('backend.report_medicine') }}" class="dropdown-item"><i
+                                        class="fa fa-angle-double-right main-web-color"></i>
+                                    ລາຍງານຢາ</a>
+                            </li>
+                            <li><a href="{{ route('backend.report_user') }}" class="dropdown-item"><i
+                                        class="fa fa-angle-double-right main-web-color"></i>
+                                    ລາຍການຜູ້ໃຊ້ລະບົບ</a>
+                            </li>
+                            <li class="dropdown-divider"></li>
+                    </li>
                 @endif
             </ul>
 

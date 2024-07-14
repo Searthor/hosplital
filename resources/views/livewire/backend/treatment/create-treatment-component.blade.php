@@ -154,11 +154,11 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label for="">ກໍາມະຈອນ<span class="text-danger">*</span></label>
+                                                <label for="">ກໍາມະຈອນ</label>
                                                 <input type="text" class="form-control" wire:model='heartbeat'>
-                                                @error('heartbeat')
+                                                {{-- @error('heartbeat')
                                                     <span style="color: red" class="error">{{ $message }}</span>
-                                                @enderror
+                                                @enderror --}}
                                             </div>
 
                                         </div>

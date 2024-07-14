@@ -59,12 +59,16 @@
                                                     <td>{{ $item->des }}</td>
                                                     <td>
                                                         <div class="btn-group">
+                                                            @if ($function_controller->check_permission('access_edit_medicine') == true || auth()->user()->role_id == 1)
                                                             <button wire:click="edit({{ $item->id }})"
                                                                 type="button" class="btn btn-warning btn-sm"><i
                                                                     class="fa fa-pencil"></i></button>
-                                                            <button wire:click="showDestroy({{ $item->id }})"
-                                                                type="button" class="btn btn-danger btn-sm"><i
-                                                                    class="fa fa-trash"></i></button>
+                                                            @endif
+                                                            @if ($function_controller->check_permission('access_delete_medicine') == true || auth()->user()->role_id == 1)
+                                                                <button wire:click="showDestroy({{ $item->id }})"
+                                                                    type="button" class="btn btn-danger btn-sm"><i
+                                                                        class="fa fa-trash"></i></button>
+                                                            @endif
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -97,7 +101,8 @@
                                                     class="form-control">
                                                     <option value="">ກະລຸນາເລືອກ</option>
                                                     @foreach ($medicinesType as $item)
-                                                        <option value="{{$item->id}}">{{$item->type_name}}</option>
+                                                        <option value="{{ $item->id }}">{{ $item->type_name }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                                 @error('type')
@@ -135,15 +140,18 @@
 
                                         <button type="button" wire:click="resetform"
                                             class="btn btn-warning">{{ __('lang.reset') }}</button>
+
                                         @if ($ID)
-                                            <button type="button" wire:click="store"
-                                                class="btn btn-warning">{{ __('lang.edit') }}</button>
+                                            @if ($function_controller->check_permission('access_edit_medicine') == true || auth()->user()->role_id == 1)
+                                                <button type="button" wire:click="store"
+                                                    class="btn btn-warning">{{ __('lang.edit') }}</button>
+                                            @endif
                                         @else
-                                            <button type="button" wire:click="store"
-                                                class="btn btn-success">{{ __('lang.save') }}</button>
+                                            @if ($function_controller->check_permission('access_add_medicine') == true || auth()->user()->role_id == 1)
+                                                <button type="button" wire:click="store"
+                                                    class="btn btn-success">{{ __('lang.save') }}</button>
+                                            @endif
                                         @endif
-
-
                                     </div>
                                 </div>
                             </form>

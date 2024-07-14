@@ -16,6 +16,8 @@ use App\Livewire\Backend\Report\CustomerArrearContent;
 use App\Livewire\Backend\ExpendIncome\ExpendIncomeContent;
 use App\Livewire\Backend\Report\ReportPateintComponent;
 use App\Livewire\Backend\Report\ReportAppointmentCompont;
+use App\Livewire\Backend\Report\MedicineComponrt;
+use App\Livewire\Backend\Report\ReportUserComponrt;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +56,8 @@ Route::group(['middleware' => 'adminLogin'], function () {
    
     Route::get('/report-pateint', ReportPateintComponent::class)->name('backend.report_pateint');
     Route::get('/report-appointments', ReportAppointmentCompont::class)->name('backend.report_appointments');
+    Route::get('/report-medicine', MedicineComponrt::class)->name('backend.report_medicine');
+    Route::get('/report-user', ReportUserComponrt::class)->name('backend.report_user');
     // 
     Route::get('/province', App\Livewire\Backend\Settings\ProvinceComponent::class)->name('backend.province');
     Route::get('/district', App\Livewire\Backend\Settings\DistrictComponent::class)->name('backend.district');

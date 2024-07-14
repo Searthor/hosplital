@@ -13,7 +13,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('backend.dashboard') }}">{{ __('lang.home') }}</a>
                         </li>
-                       /ລາຍການຄົນໄຂ
+                        /ລາຍການຄົນໄຂ
                     </ol>
                 </div>
             </div>
@@ -28,12 +28,10 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="row">
-                                        @if (
-                                            $function_controller->check_permission('customer_add') == true ||
-                                                auth()->user()->role_id == 1
-                                               )
+                                        @if ($function_controller->check_permission('customer_add') == true || auth()->user()->role_id == 1)
                                             <div class="col-md-4">
-                                                <a href="{{ route('create_treatment') }}" class="btn btn-info" style="padding: .5rem 2rem">{{__('lang.add')}}</a>
+                                                <a href="{{ route('create_treatment') }}" class="btn btn-info"
+                                                    style="padding: .5rem 2rem">{{ __('lang.add') }}</a>
                                             </div>
                                         @endif
                                     </div>
@@ -44,8 +42,8 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <input type="text" class="form-control"
-                                            placeholder="{{ __('lang.search') }}" wire:model="search">
+                                        <input type="text" class="form-control" placeholder="{{ __('lang.search') }}"
+                                            wire:model="search">
                                     </div>
                                 </div>
                                 <div class="col-md-1">
@@ -62,61 +60,77 @@
                             <div class="table-responsive mt-2" wire:poll>
                                 <table class="table table-bordered" id="table-excel">
                                     <thead>
-                                        <tr >
+                                        <tr>
                                             <td class="text-center">No.</td>
-                                            <td class="text-center">{{__('lang.code')}}</td>
-                                            <td>{{__('lang.fullname')}}</td>
+                                            <td class="text-center">{{ __('lang.code') }}</td>
+                                            <td>{{ __('lang.fullname') }}</td>
                                             <td>ທ່ານໜໍທີ່ດຸແລ</td>
-                                            <td class="text-center">{{__('lang.date')}}</td>
-                                            <td class="text-center">{{__('lang.creator')}}</td>
-                                            <td class="text-center">{{__('lang.action')}}</td>
+                                            <td class="text-center">{{ __('lang.date') }}</td>
+                                            <td class="text-center">{{ __('lang.creator') }}</td>
+                                            <td class="text-center">{{ __('lang.action') }}</td>
                                         </tr>
                                     </thead>
 
-                                    <tbody >
+                                    <tbody>
                                         @php
-                                            $i =1;
-                                            $name="searthor"
-                            
+                                            $i = 1;
+                                            $name = 'searthor';
+
                                         @endphp
                                         @foreach ($data as $item)
-                                        <tr>
-                                            <td class="text-center">{{$i++}}</td>
-                                            <td class="text-center"><a href="{{route('treatment_detail',['id'=>$item->id])}}" style="background: rgba(194, 255, 247, 0.338);padding:0rem 1rem;border-radius: 5px;">{{$item->code}}</a></td>
-                                            <td>
-                                                <p class="bg-info mr-3" style= "border-radius: 50%;width:40px;height:40px;line-height:40px;text-align:center; display:inline-block">
-                                                    {{ substr($item->get_patient->f_name,0,1) }}{{ substr($item->get_patient->l_name,0,1) }}
-                                                </p>
-                                                {{ $item->get_patient->f_name }} {{ $item->get_patient->l_name }}
-                                            </td>
+                                            <tr>
+                                                <td class="text-center">{{ $i++ }}</td>
+                                                @if ($function_controller->check_permission('access_detail_treatment') == true || auth()->user()->role_id == 1)
+                                                    <td class="text-center"><a
+                                                            href="{{ route('treatment_detail', ['id' => $item->id]) }}"
+                                                            style="background: rgba(194, 255, 247, 0.338);padding:0rem 1rem;border-radius: 5px;">{{ $item->code }}</a>
+                                                    </td>
+                                                @else
+                                                    <td class="text-center"><a href="#"
+                                                            style="background: rgba(194, 255, 247, 0.338);padding:0rem 1rem;border-radius: 5px;">{{ $item->code }}</a>
+                                                    </td>
+                                                @endif
+                                                <td>
+                                                    <p class="bg-info mr-3"
+                                                        style= "border-radius: 50%;width:40px;height:40px;line-height:40px;text-align:center; display:inline-block">
+                                                        {{ substr($item->get_patient->f_name, 0, 1) }}{{ substr($item->get_patient->l_name, 0, 1) }}
+                                                    </p>
+                                                    {{ $item->get_patient->f_name }} {{ $item->get_patient->l_name }}
+                                                </td>
 
-                                            <td>
-                                                {{$item->get_creator->f_name}} {{$item->get_creator->l_name}}
-                                            </td>
-                                            <td class="text-center">
-                                                
-                                                {{ date('d/m/Y', strtotime($item->date)) }}
-                                            </td>
-                                            <td class="text-center">
-                                               
-                                                Admin
-                                            </td>
-                                            <td class="text-center">
-                                                {{-- <<button wire:click="showDestroy({{ $item->id }})"
+                                                <td>
+                                                    {{ $item->get_creator->f_name }} {{ $item->get_creator->l_name }}
+                                                </td>
+                                                <td class="text-center">
+
+                                                    {{ date('d/m/Y', strtotime($item->date)) }}
+                                                </td>
+                                                <td class="text-center">
+
+                                                    Admin
+                                                </td>
+                                                <td class="text-center">
+
+                                                    {{-- <<button wire:click="showDestroy({{ $item->id }})"
                                                     type="button" class="btn btn-danger btn-sm"><i
                                                         class="fa fa-trash"></i></button> --}}
-                                                <a wire:click="showDestroy({{ $item->id }})"
-                                                    type="button" class="btn btn-danger btn-sm">
-                                                    <i  class="fa fa-trash"></i>
-                                                </a>
-                                            </td>
-                                           </tr>
-                                            
+                                                    @if ($function_controller->check_permission('access_detail_treatment') == true || auth()->user()->role_id == 1)
+                                                        <a  type="button" href="{{ route('treatment_detail', ['id' => $item->id]) }}"
+                                                            class="btn btn-warning btn-sm">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                    @endif
+                                                    <a wire:click="showDestroy({{ $item->id }})" type="button"
+                                                        class="btn btn-danger btn-sm">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
                                         @endforeach
 
-                                      
 
-                                       {{-- <tr>
+
+                                        {{-- <tr>
                                         <td class="text-center">02</td>
                                         <td class="text-center"><a href="" style="background: rgba(194, 255, 247, 0.338);padding:0rem 1rem;border-radius: 5px;">TM-04234</a></td>
                                         <td>

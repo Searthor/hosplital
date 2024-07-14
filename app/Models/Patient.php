@@ -24,8 +24,16 @@ class Patient extends Model
         'unit',
         'house_number',
         'village',
-        'city',
-        'province',
+        'dis_id',
+        'pro_id',
+        'contact_name',
+        'contact_relationship',
+        'contact_phone',
+        'pro_contact_id',
+        'dis_contact_id',
+        'village_contact',
+        'file',
+        'des',
         'created_at',
     ];
 

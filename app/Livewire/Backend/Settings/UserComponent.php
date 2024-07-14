@@ -115,6 +115,9 @@ class UserComponent extends Component
     }
     public function Store()
     {
+
+        
+       
         if ($this->hiddenId) {
             if ($this->password) {
                 if ($this->password != $this->confirm_password) {
@@ -134,7 +137,6 @@ class UserComponent extends Component
                 'ethnicity' => 'required',
             ], [
                 'firstname.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
-             
                 'phone.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
                 'phone.unique' => 'ຂໍ້ມູນນີ້ມີໃນລະບົບເເລ້ວ!',
                 'role_id.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
@@ -194,7 +196,6 @@ class UserComponent extends Component
                 'ethnicity' => 'required',
             ], [
                 'firstname.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
-             
                 'phone.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
                 'phone.unique' => 'ຂໍ້ມູນນີ້ມີໃນລະບົບເເລ້ວ!',
                 'role_id.required' => 'ກະລຸນາປ້ອນຂໍ້ມູນກ່ອນ!',
@@ -216,16 +217,9 @@ class UserComponent extends Component
                     return;
                 }
             }
-            $code = '';
-            while (true) {
-                $code = rand('1000000', '9999999');
-                $check_code = User::where('code', $code)->get();
-                if (count($check_code) == 0) {
-                    break;
-                }
-            }
-
+          
             try {
+                $code = $this->function_controller->generate_code('user');
                 $data  =  new User();
                 $data->code = $code;
                 $data->f_name = $this->firstname;

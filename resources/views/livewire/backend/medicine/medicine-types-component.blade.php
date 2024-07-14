@@ -57,12 +57,17 @@
                                                     <td>{{ $item->des }}</td>
                                                     <td>
                                                         <div class="btn-group">
-                                                            <button wire:click="edit({{ $item->id }})"
-                                                                type="button" class="btn btn-warning btn-sm"><i
-                                                                    class="fa fa-pencil"></i></button>
-                                                            <button wire:click="showDestroy({{ $item->id }})"
-                                                                type="button" class="btn btn-danger btn-sm"><i
-                                                                    class="fa fa-trash"></i></button>
+                                                            @if ($function_controller->check_permission('access_edit_medicine_type') == true || auth()->user()->role_id == 1)
+                                                                <button wire:click="edit({{ $item->id }})"
+                                                                    type="button" class="btn btn-warning btn-sm"><i
+                                                                        class="fa fa-pencil"></i></button>
+                                                            @endif
+
+                                                            @if ($function_controller->check_permission('access_delete_medicine_type') == true || auth()->user()->role_id == 1)
+                                                                <button wire:click="showDestroy({{ $item->id }})"
+                                                                    type="button" class="btn btn-danger btn-sm"><i
+                                                                        class="fa fa-trash"></i></button>
+                                                            @endif
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -93,9 +98,7 @@
                                                 <label>ຊື່ປະເພດ <span class="text-danger">*</span> </label>
                                                 <input wire:model.live="type_name" type="text"
                                                     class="form-control
-                                                    @if ($type_name == null)
-                                                    @error('type_name') is-invalid @enderror   
-                                                    @endif"
+                                                    @if ($type_name == null) @error('type_name') is-invalid @enderror @endif"
                                                     placeholder="{{ __('lang.name') }}">
                                                 @if ($type_name == null)
                                                     @error('type_name')
@@ -123,11 +126,15 @@
                                         <button type="button" wire:click="resetform"
                                             class="btn btn-warning">{{ __('lang.reset') }}</button>
                                         @if ($ID)
-                                            <button type="button" wire:click="store"
-                                                class="btn btn-warning">{{ __('lang.edit') }}</button>
+                                            @if ($function_controller->check_permission('access_edit_medicine_type') == true || auth()->user()->role_id == 1)
+                                                <button type="button" wire:click="store"
+                                                    class="btn btn-warning">{{ __('lang.edit') }}</button>
+                                            @endif
                                         @else
-                                            <button type="button" wire:click="store"
-                                                class="btn btn-success">{{ __('lang.save') }}</button>
+                                            @if ($function_controller->check_permission('access_add_medicine_type') == true || auth()->user()->role_id == 1)
+                                                <button type="button" wire:click="store"
+                                                    class="btn btn-success">{{ __('lang.save') }}</button>
+                                            @endif
                                         @endif
 
 
@@ -173,6 +180,5 @@
         window.addEventListener('hide-modal-delete', event => {
             $('#modal-delete').modal('hide');
         })
-        
     </script>
 @endpush

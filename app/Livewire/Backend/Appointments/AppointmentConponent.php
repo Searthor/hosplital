@@ -18,6 +18,19 @@ class AppointmentConponent extends Component
         $patient = Patient::all();
 
         $appointments = Appointment::orderBy('id', 'desc')->get();
+        // $data = Appointment::leftjoin('patients', 'guarantee_types.id', 'guarantees.name')
+        // ->leftjoin('guarantee_types  as type', 'type.id', 'guarantees.guarantee_types_id')
+        // ->where(function ($q) use ($search) {
+        //     $q->orwhere('guarantee_types.name_la', 'like', '%' . $search . '%');
+        //     $q->orwhere('type.name_la', 'like', '%' . $search . '%');
+        //     $q->orwhere('guarantees.land_number', 'like', '%' . $search . '%');
+        //     $q->orwhere('guarantees.land_name', 'like', '%' . $search . '%');
+        //     $q->orwhere('guarantees.serial_number', 'like', '%' . $search . '%');
+        // })
+        // ->select('guarantees.*')
+        // ->where('guarantees.del', 1)
+        // ->orderBy('guarantees.id', 'desc');
+
         if (auth()->user()->role_id == 1) {
             $appointments  = $appointments;
         } else {

@@ -59,7 +59,7 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="row">
-                                        @if ($function_controller->check_permission('customer_add') == true || auth()->user()->role_id == 1)
+                                        @if ($function_controller->check_permission('access_add_appointments') == true || auth()->user()->role_id == 1)
                                             <button class="btn btn-primary" wire:click="create">
                                                 ເພີ່ມໃໝ່
                                             </button>
@@ -137,14 +137,19 @@
                                                     type="button" class="btn btn-info btn-sm">
                                                     <i  class="fa fa-eye"></i>
                                                 </a> --}}
-                                                    <a wire:click="showUpdate({{ $item->id }})" type="button"
-                                                        class="btn btn-warning btn-sm">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                    <a wire:click="showDestroy({{ $item->id }})" type="button"
-                                                        class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-trash"></i>
-                                                    </a>
+                                                    @if ($function_controller->check_permission('access_update_appointments') == true || auth()->user()->role_id == 1)
+                                                        <a wire:click="showUpdate({{ $item->id }})" type="button"
+                                                            class="btn btn-warning btn-sm">
+                                                            <i class="fa fa-pencil"></i>
+
+                                                        </a>
+                                                    @endif
+                                                    @if ($function_controller->check_permission('access_delete_appointments') == true || auth()->user()->role_id == 1)
+                                                        <a wire:click="showDestroy({{ $item->id }})" type="button"
+                                                            class="btn btn-danger btn-sm">
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
+                                                    @endif
 
                                                 </td>
                                             </tr>

@@ -156,8 +156,7 @@
                                 <input type="text" class="form-control" wire:model="firstname"
                                     placeholder="{{ __('lang.firstname') }}">
                                 @error('firstname')
-                                    <span style="color: red"
-                                        class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                <span style="color: red" class="error">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -167,8 +166,7 @@
                                 <input type="text" class="form-control" wire:model="lastname"
                                     placeholder="{{ __('lang.lastname') }}">
                                 @error('lastname')
-                                    <span style="color: red"
-                                        class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                <span style="color: red" class="error">{{ $message }}</span>
                                 @enderror
                             </div>
 
@@ -183,8 +181,7 @@
                                     <option value="ອື່ນໆ">ອື່ນໆ</option>
                                 </select>
                                 @error('gender')
-                                    <span style="color: red"
-                                        class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                <span style="color: red" class="error">{{ $message }}</span>
                                 @enderror
                             </div>
 
@@ -193,11 +190,10 @@
                             <div class="form-group">
                                 <label for="">{{ __('lang.birthday') }}<span
                                         class="text-danger">*</span></label>
-                                <input type="date" class="form-control" wire:model="birthday"
+                                <input type="date" class="form-control" wire:model="birthday" max="{{ date('Y-m-d') }}"
                                     placeholder="{{ __('lang.birthday') }}">
                                 @error('birthday')
-                                    <span style="color: red"
-                                        class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                <span style="color: red" class="error">{{ $message }}</span>
                                 @enderror
                             </div>
 
@@ -213,8 +209,7 @@
                                     <ອoption value="ອື່ນໆ">ອື່ນໆ</option>
                                 </select>
                                 @error('status')
-                                    <span style="color: red"
-                                        class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                <span style="color: red" class="error">{{ $message }}</span>
                                 @enderror
                             </div>
 
@@ -226,8 +221,7 @@
                                     placeholder="{{ __('lang.nationality') }}"
                                    >
                                 @error('nationality')
-                                    <span style="color: red"
-                                        class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                <span style="color: red" class="error">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -238,8 +232,7 @@
                                     placeholder="{{ __('lang.ethnicity') }}" 
                                   >
                                 @error('ethnicity')
-                                    <span style="color: red"
-                                        class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                <span style="color: red" class="error">{{ $message }}</span>
                                 @enderror
                             </div>
 
@@ -253,8 +246,7 @@
                                 <input type="text" class="form-control" wire:model="phone"
                                     placeholder="{{ __('lang.phone') }}">
                                 @error('phone')
-                                    <span style="color: red"
-                                        class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                <span style="color: red" class="error">{{ $message }}</span>
                                 @enderror
                             </div>
 
@@ -278,8 +270,7 @@
                                     @endforeach
                                 </select>
                                 @error('pro_id')
-                                    <span style="color: red"
-                                        class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                <span style="color: red" class="error">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -301,8 +292,7 @@
                                     @endforeach
                                 </select>
                                 @error('dis_id')
-                                    <span style="color: red"
-                                        class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                <span style="color: red" class="error">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -312,8 +302,7 @@
                                     {{ __('lang.village') }}</label>
                                 <input type="text" wire:model='village' class="form-control" placeholder="{{ __('lang.village') }}.....">
                                 @error('village')
-                                    <span style="color: red"
-                                        class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                <span style="color: red" class="error">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -333,8 +322,7 @@
                                     @endforeach
                                 </select>
                                 @error('department_id')
-                                    <span style="color: red"
-                                        class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                <span style="color: red" class="error">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -352,8 +340,7 @@
                                     @endforeach
                                 </select>
                                 @error('role_id')
-                                    <span style="color: red"
-                                        class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                <span style="color: red" class="error">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -364,8 +351,7 @@
                                 <input type="password" class="form-control" wire:model="password"
                                     placeholder="{{ __('lang.password') }}">
                                 @error('password')
-                                    <span style="color: red"
-                                        class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                <span style="color: red" class="error">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -376,8 +362,7 @@
                                 <input type="password" class="form-control" wire:model="confirm_password"
                                     placeholder="{{ __('lang.confirm_password') }}">
                                 @error('confirm_password')
-                                    <span style="color: red"
-                                        class="error">{{ __('lang.please_fill_information_first') }}</span>
+                                <span style="color: red" class="error">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>

@@ -144,21 +144,21 @@
                                     <div class="form-group">
                                         <label for="inputName2"
                                             class="col-sm-4 col-form-label">ວັນເດືອນປີເກິດ </label>
-                                        <input type="text" wire:model='village' class="form-control">
+                                        <input type="date" wire:model='birthday' class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="inputName2"
                                             class="col-sm-4 col-form-label">ເພດ </label>
-                                        <input type="text" wire:model='village' class="form-control">
+                                        <input type="text" wire:model='gender' class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="inputName2"
                                             class="col-sm-4 col-form-label">ສະຖານະ </label>
-                                        <input type="text" wire:model='village' class="form-control">
+                                        <input type="text" wire:model='status' class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -209,7 +209,21 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="inputName2"
-                                            class="col-sm-4 col-form-label">{{ __('lang.password') }} </label>
+                                            class="col-sm-4 col-form-label">{{ __('lang.password') }}ເກົ່າ </label>
+
+                                        <input type="password" wire:model="old_password"
+                                            class="form-control @error('old_password') is-invalid @enderror" 
+                                            placeholder="ປ້ອນຂໍ້ມູນ">
+                                        @error('old_password')
+                                            <span style="color: red" class="error">{{ $message }}</span>
+                                        @enderror
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="inputName2"
+                                            class="col-sm-4 col-form-label">{{ __('lang.password') }} ໃໝ່</label>
 
                                         <input type="password" wire:model="password"
                                             class="form-control @error('password') is-invalid @enderror" id="inputName2"
@@ -223,7 +237,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="inputName2"
-                                            class="col-sm-12 col-form-label">{{ __('lang.confirm_password') }}
+                                            class="col-sm-12 col-form-label">{{ __('lang.confirm_password') }}ໃໝ່
                                         </label>
                                         <input type="password" wire:model="confirmpassword"
                                             class="form-control @error('confirmpassword') is-invalid @enderror"

@@ -16,7 +16,9 @@ class ProfileComponent extends Component
         $dis_id,
         $pro_id,
         $districts = [],
-        $village, $firstname, $lastname, $phone, $address, $email, $password, $confirm_password;
+        $village, $firstname, $lastname, $phone, $address, $email, $password,
+         $confirmpassword,$gender,$status,
+         $birthday,$old_password;
     public function mount()
     {
         $this->firstname =  auth()->user()->f_name;
@@ -27,6 +29,10 @@ class ProfileComponent extends Component
         $this->dis_id =  auth()->user()->dis_id;
         $this->pro_id =  auth()->user()->pro_id;
         $this->village = auth()->user()->village;
+        $this->gender = auth()->user()->gender;
+        $this->status = auth()->user()->status;
+        $this->status = auth()->user()->status;
+        $this->birthday = auth()->user()->birthday;
         
     }
     public function render()
@@ -56,12 +62,32 @@ class ProfileComponent extends Component
     public function updateProfile()
     {
         if ($this->password) {
-            if ($this->password != $this->confirm_password) {
-                $this->dispatch('something_went_wrong');
+            $this->validate([
+                'old_password' => 'required',
+
+            ], [
+                'old_password.required' => 'ກະລຸນາປ້ອນລະຫັດເກົ່າກ່ອນ!',
+
+              
+            ]);
+            $data = User::find(auth()->user()->id);
+            $var = password_verify($this->old_password, $data->password);
+            if($var ==false){
+                $this->dispatch('passwords_not_co');
+                return;
+            }
+
+
+
+
+
+
+            if ($this->password != $this->confirmpassword) {
+                $this->dispatch('passwords_not_match');
                 return;
             }
         }
-        // try {
+        try {
             $data = User::find(auth()->user()->id);
             $data->f_name = $this->firstname;
             $data->l_name = $this->lastname;
@@ -73,12 +99,16 @@ class ProfileComponent extends Component
             $data->village = $this->village;
             $data->pro_id = $this->pro_id;
             $data->dis_id = $this->dis_id;
+            $data->birthday = $this->birthday;
+            $data->status = $this->status;
+            $data->gender = $this->gender;
+            $data->l_name = $this->lastname;
             $data->update();
             $this->mount();
             $this->dispatch('show-modal-hide');
             $this->dispatch('edit');
-        // } catch (\Exception $ex) {
-        //     $this->dispatch('something_went_wrong');
-        // }
+        } catch (\Exception $ex) {
+            $this->dispatch('something_went_wrong');
+        }
     }
 }
